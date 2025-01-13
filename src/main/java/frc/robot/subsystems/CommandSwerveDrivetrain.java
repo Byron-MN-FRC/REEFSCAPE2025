@@ -54,12 +54,6 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private final SwerveRequest.SysIdSwerveSteerGains m_steerCharacterization = new SwerveRequest.SysIdSwerveSteerGains();
     private final SwerveRequest.SysIdSwerveRotation m_rotationCharacterization = new SwerveRequest.SysIdSwerveRotation();
 
-    //Hourmeter code. Pardon my dust.
-    {if (DriverStation.isDisabled()) {
-            stopMonitoring();
-        } else {
-            startMonitoring();
-        }}
     /* SysId routine for characterizing translation. This is used to find PID gains for the drive motors. */
     private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
         new SysIdRoutine.Config(
@@ -283,6 +277,12 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
                 );
                 m_hasAppliedOperatorPerspective = true;
             });
+        }
+            //Hourmeter code. Pardon my dust.
+    if (DriverStation.isEnabled()) {
+        startMonitoring();   
+        } else {
+        stopMonitoring();    
         }
     }
 

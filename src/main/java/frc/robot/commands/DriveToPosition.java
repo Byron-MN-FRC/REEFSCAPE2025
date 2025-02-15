@@ -16,7 +16,7 @@ import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 import frc.robot.TagApproaches;
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  *
@@ -31,7 +31,7 @@ public class DriveToPosition extends Command {
     private String _limelightName = Constants.VisionConstants.limeLightName;
 
     private TagApproaches tagApproaches = TagApproaches.getInstance();
-    private final CommandSwerveDrivetrain drivetrain;
+    private final Drivetrain drivetrain;
     private Pose2d goalPose;
     private double initialR;
     private double angle;
@@ -49,7 +49,7 @@ public class DriveToPosition extends Command {
     //         .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
     //         .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     
-    public DriveToPosition(CommandSwerveDrivetrain subsystem) {
+    public DriveToPosition(Drivetrain subsystem) {
         drivetrain = subsystem;
 
         xController.setTolerance(0.05);

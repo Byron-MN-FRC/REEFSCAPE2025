@@ -37,7 +37,7 @@ import frc.robot.commands.Store;
 import frc.robot.commands.ZeroAll;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Claw;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shoulder;
 import frc.robot.subsystems.Vision;
@@ -73,7 +73,7 @@ public class RobotContainer {
     public final XboxController accessory = new XboxController(1);
     // private final CommandXboxController characterizationJoystick = new CommandXboxController(2);
 
-    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final Drivetrain drivetrain = TunerConstants.createDrivetrain();
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;

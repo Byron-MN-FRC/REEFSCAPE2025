@@ -25,7 +25,7 @@ public class DriveToPosition extends Command {
 
     private static final TrapezoidProfile.Constraints X_CONSTRAINTS = new TrapezoidProfile.Constraints(3, 2);
     private static final TrapezoidProfile.Constraints Y_CONSTRAINTS = new TrapezoidProfile.Constraints(3, 2);
-    private static final TrapezoidProfile.Constraints Magnitude_Constraints = new TrapezoidProfile.Constraints(3, 2);
+    // private static final TrapezoidProfile.Constraints Magnitude_Constraints = new TrapezoidProfile.Constraints(3, 2);
     private static final TrapezoidProfile.Constraints OMEGA_CONSTRAINTS = new TrapezoidProfile.Constraints(8, 8);
 
     private String _limelightName = Constants.VisionConstants.limeLightName;
@@ -38,7 +38,7 @@ public class DriveToPosition extends Command {
 
     private final ProfiledPIDController xController = new ProfiledPIDController(2, 0, 0, X_CONSTRAINTS);
     private final ProfiledPIDController yController = new ProfiledPIDController(2.5, 0, 0, Y_CONSTRAINTS);
-    private final ProfiledPIDController magnitudeController = new ProfiledPIDController(2.5, 0, 0, Magnitude_Constraints);
+    // private final ProfiledPIDController magnitudeController = new ProfiledPIDController(2.5, 0, 0, Magnitude_Constraints);
     private final ProfiledPIDController omegaController = new ProfiledPIDController(3, 0, .1, OMEGA_CONSTRAINTS);
 
     private int lastTarget;
@@ -84,12 +84,12 @@ public class DriveToPosition extends Command {
         }
 
         goalPose = tagApproaches.DesiredRobotPos(Robot.getInstance().globalCurrNumSelected);
-        initialR = goalPose.getTranslation().getDistance(drivetrain.getState().Pose.getTranslation());
+        // initialR = goalPose.getTranslation().getDistance(drivetrain.getState().Pose.getTranslation());
 
         omegaController.reset(drivetrain.getState().Pose.getRotation().getRadians());
         yController.reset(drivetrain.getState().Pose.getY());
         xController.reset(drivetrain.getState().Pose.getX());
-        magnitudeController.reset(drivetrain.getState().Pose.getTranslation().getDistance(goalPose.getTranslation()));
+        // magnitudeController.reset(drivetrain.getState().Pose.getTranslation().getDistance(goalPose.getTranslation()));
         System.out.println("yo this works");
         
         Robot.getInstance().targetPoseField.setRobotPose(goalPose);
@@ -100,24 +100,24 @@ public class DriveToPosition extends Command {
     public void execute() {
 
             //update polar coords
-            double currentR = drivetrain.getState().Pose.getTranslation().getDistance(goalPose.getTranslation());
-            double distCxGx = drivetrain.getState().Pose.getTranslation().getX() - goalPose.getTranslation().getX();
-            if (drivetrain.getState().Pose.getY() > goalPose.getY()) {
-                angle = Math.toDegrees(-1.0 * Math.acos(distCxGx / currentR));
-                SmartDashboard.putBoolean("invertS", true);
-            } else {
-                angle = Math.toDegrees(Math.acos(distCxGx / currentR));
-                SmartDashboard.putBoolean("invertS", false);
-            }
-            SmartDashboard.putNumber("angleRJIEOFOS", angle);
-            SmartDashboard.putNumber("cR", currentR);
-            SmartDashboard.putNumber("dCXGX", distCxGx);
+            // double currentR = goalPose.getTranslation().getDistance(drivetrain.getState().Pose.getTranslation());
+            // double distCxGx = goalPose.getTranslation().getX() - drivetrain.getState().Pose.getTranslation().getX();
+            // if (drivetrain.getState().Pose.getY() > goalPose.getY()) {
+            //     angle = Math.toDegrees(-1.0 * Math.acos(distCxGx / currentR));
+            //     SmartDashboard.putBoolean("invertS", true);
+            // } else {
+            //     angle = Math.toDegrees(Math.acos(distCxGx / currentR));
+            //     SmartDashboard.putBoolean("invertS", false);
+            // }
+            // SmartDashboard.putNumber("angleRJIEOFOS", angle);
+            // SmartDashboard.putNumber("cR", currentR);
+            // SmartDashboard.putNumber("dCXGX", distCxGx);
 
             // Drive
             xController.setGoal(goalPose.getX());
             yController.setGoal(goalPose.getY());
             omegaController.setGoal(goalPose.getRotation().getRadians());
-            magnitudeController.setGoal(0);
+            // magnitudeController.setGoal(0);
 
             // Drive to the target
             var xSpeed = xController.calculate(drivetrain.getState().Pose.getX());
@@ -135,16 +135,20 @@ public class DriveToPosition extends Command {
                 omegaSpeed = 0;
             }
 
-            // var combinedSpeed = magnitudeController.calculate(currentR);
-                
+            // double combinedSpeed = magnitudeController.calculate(currentR);
             // double xSpeedFromPolar = -1 * Math.cos(angle) * combinedSpeed;
             // double ySpeedFromPolar = -1 * Math.sin(angle) * combinedSpeed;
-            
+
             // if (magnitudeController.atGoal()) {
             //     xSpeedFromPolar = 0;
             //     ySpeedFromPolar = 0;
             // }
-
+            // SmartDashboard.putNumber("combinedSpeed", combinedSpeed);
+            // SmartDashboard.putNumber("xSpeedFromPolar", ySpeedFromPolar);
+            // SmartDashboard.putNumber("ySpeedFromPolar", xSpeedFromPolar);
+            SmartDashboard.putNumber("xSpeed", xSpeed);
+            SmartDashboard.putNumber("ySpeed", ySpeed);
+            // SmartDashboard.putNumber("goal", magnitudeController.getGoal().position);
 
 
         // drivetrain.setControl(

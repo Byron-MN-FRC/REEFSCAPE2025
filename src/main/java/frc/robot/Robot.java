@@ -30,6 +30,8 @@ public class Robot extends TimedRobot {
         HttpCamera backCam = new HttpCamera("BackCam", "http://10.48.59.12:5800");
         CameraServer.addCamera(backCam);
   }
+  
+
 
   public static RobotContainer getInstance(){
     return m_robotContainer;
@@ -42,6 +44,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("Coral", m_robotContainer.getCoralDetect());
     SmartDashboard.putBoolean("Wrist Zero", m_robotContainer.getWristTripped());
     SmartDashboard.putBoolean("ShoulderTripped", m_robotContainer.getShoulderTripped());
+    SmartDashboard.putNumber("Battery", Robot.getInstance().pdp.getVoltage());
     
     /*
      * This example of adding Limelight is very simple and may not be sufficient for

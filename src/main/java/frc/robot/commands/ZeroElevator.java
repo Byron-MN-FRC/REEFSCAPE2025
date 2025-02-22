@@ -63,9 +63,8 @@ public class ZeroElevator extends Command {
     @Override
     public void end(boolean interrupted) {
         System.out.println("ending elevator");
-
-        //Robot.getInstance().currentArrangementOthers() to do
-
+        m_elevator.stopBothMotors();
+        Robot.getInstance().currentArrangementOthers(PoseSetter.Zero);
     }
 
     // Returns true when the command should end.

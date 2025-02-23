@@ -37,6 +37,7 @@ import frc.robot.commands.MoveElevator;
 import frc.robot.commands.MoveShoulder;
 import frc.robot.commands.MoveWrist;
 import frc.robot.commands.PlaceCoral;
+import frc.robot.commands.RunStage2Manual;
 import frc.robot.commands.SelectPlacement;
 import frc.robot.commands.Store;
 import frc.robot.commands.StorePreMatch;
@@ -126,8 +127,8 @@ public class RobotContainer {
         SmartDashboard.putData("Climb", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Climb))
                 .andThen(new Climb(m_elevator)));
         SmartDashboard.putData("DriveToPosition", new DriveToPosition(drivetrain));
-        SmartDashboard.putData("GrabCoralHigh", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Feeder))
-                .andThen(new GrabCoralHigh(m_shoulder, m_elevator, m_wrist, m_claw)));
+        // SmartDashboard.putData("GrabCoralHigh", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Feeder))
+        //         .andThen(new GrabCoralHigh(m_shoulder, m_elevator, m_wrist, m_claw)));
         SmartDashboard.putData("GrabCoralLow", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Ground))
                 .andThen(new GrabCoralLow(m_shoulder, m_elevator, m_wrist, m_claw)));
         SmartDashboard.putData("MoveElevator", new InstantCommand(() -> goalArrangementPlacing())
@@ -136,8 +137,8 @@ public class RobotContainer {
          .andThen(new MoveShoulder(m_shoulder)));
         SmartDashboard.putData("MoveWrist", new InstantCommand(() -> goalArrangementPlacing())
         .andThen(new MoveWrist(m_wrist)));
-        SmartDashboard.putData("PlaceCoral", new InstantCommand(() -> goalArrangementPlacing())
-                .andThen(new PlaceCoral(m_shoulder, m_elevator, m_wrist, m_claw)));
+        // SmartDashboard.putData("PlaceCoral", new InstantCommand(() -> goalArrangementPlacing())
+        //         .andThen(new PlaceCoral(m_shoulder, m_elevator, m_wrist, m_claw)));
         SmartDashboard.putData("Store", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
                 .andThen(new Store(m_shoulder, m_elevator, m_wrist, m_claw)));
         SmartDashboard.putData("StorePreMatch", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
@@ -174,6 +175,9 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
+
+
+        m_elevator.setDefaultCommand( new RunStage2Manual(m_elevator, accessory));
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
@@ -203,13 +207,13 @@ public class RobotContainer {
 
         // Operator buttons
         joystick.leftTrigger(.5).onTrue(new InstantCommand(() -> goalArrangementPlacing())
-                .andThen(new PlaceCoral(m_shoulder, m_elevator, m_wrist, m_claw)
+                .andThen(new PlaceCoral(m_shoulder,/* m_elevator,*/ m_wrist, m_claw)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
         joystick.leftTrigger(.5).onFalse(new ClawDrop(m_claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         joystick.rightBumper().whileTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Feeder))
-                .andThen(new GrabCoralHigh(m_shoulder, m_elevator, m_wrist, m_claw)
+                .andThen(new GrabCoralHigh(m_shoulder, /*m_elevator,*/ m_wrist, m_claw)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
         // joystick.rightTrigger(.5).whileTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Ground))

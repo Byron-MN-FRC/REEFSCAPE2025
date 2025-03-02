@@ -6,8 +6,6 @@ package frc.robot;
 
 import com.ctre.phoenix6.Utils;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,10 +23,10 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     // m_robotContainer = new RobotContainer();
-        HttpCamera frontCam = new HttpCamera("FrontCam", "http://10.48.59.11:5800");
-        CameraServer.addCamera(frontCam);
-        HttpCamera backCam = new HttpCamera("BackCam", "http://10.48.59.12:5800");
-        CameraServer.addCamera(backCam);
+        // HttpCamera frontCam = new HttpCamera("FrontCam", "http://10.48.59.11:5800");
+        // CameraServer.addCamera(frontCam);
+        // HttpCamera backCam = new HttpCamera("BackCam", "http://10.48.59.12:5800");
+        // CameraServer.addCamera(backCam);
   }
 
   public static RobotContainer getInstance(){
@@ -67,15 +65,22 @@ public class Robot extends TimedRobot {
       }
 
       // //keep if testing the two limelights independently
-      // LimelightHelpers.SetRobotOrientation(Constants.VisionConstants.limeLightName2, headingDeg, 0, 0, 0, 0, 0);
-      // var llMeasurement2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(Constants.VisionConstants.limeLightName2);
-      // // if (llMeasurement != null && llMeasurement.tagCount > 0 && omegaRps < 2.0) {
-      // //   m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose,
-      // //       Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
-      // // }
+      LimelightHelpers.SetRobotOrientation(Constants.VisionConstants.limeLightName2, headingDeg, 0, 0, 0, 0, 0);
+      var llMeasurement2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(Constants.VisionConstants.limeLightName2);
+      if (llMeasurement2 != null && llMeasurement2.tagCount > 0 && omegaRps < 2.0) {
+        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement2.pose,
+            Utils.fpgaToCurrentTime(llMeasurement2.timestampSeconds));
+      }
 
       // // Track error between the two cameras
-      // SmartDashboard.putNumber("Error between cams", llMeasurement.pose.getDistance(llMeasurement2.pose));
+      if (llMeasurement != null && llMeasurement2 != null){
+//        double error = Math.abs(llMeasurement.pose.getX()-llMeasurement2.pose.getX()) +
+//          Math.abs(llMeasurement.pose.getY()-llMeasurement2.pose.getY());
+//        SmartDashboard.putNumber("Error between cams", error);
+        SmartDashboard.putString("Error between cams", String.format("x1: %f x2: %f y1: %f y2: %f tag: %d %d", 
+          llMeasurement.pose.getX(), llMeasurement2.pose.getX(),
+          llMeasurement.pose.getY(), llMeasurement2.pose.getY(), llMeasurement.tagCount, llMeasurement2.tagCount));
+      }
     }
 
     SmartDashboard.putNumber("tagselected", Robot.getInstance().globalCurrNumSelected); 

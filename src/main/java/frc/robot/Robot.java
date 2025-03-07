@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix6.Utils;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,10 +25,10 @@ public class Robot extends TimedRobot {
 
   public Robot() {
     // m_robotContainer = new RobotContainer();
-        // HttpCamera frontCam = new HttpCamera("FrontCam", "http://10.48.59.11:5800");
-        // CameraServer.addCamera(frontCam);
-        // HttpCamera backCam = new HttpCamera("BackCam", "http://10.48.59.12:5800");
-        // CameraServer.addCamera(backCam);
+        HttpCamera frontCam = new HttpCamera("FrontCam", "http://10.48.59.11:5800");
+        CameraServer.addCamera(frontCam);
+        HttpCamera backCam = new HttpCamera("BackCam", "http://10.48.59.12:5800");
+        CameraServer.addCamera(backCam);
   }
 
   public static RobotContainer getInstance(){

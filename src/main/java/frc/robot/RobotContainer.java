@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AutonGrabCoral;
 import frc.robot.commands.AutonPlaceCoral;
 import frc.robot.commands.ClawDrop;
@@ -84,7 +85,7 @@ public class RobotContainer {
 
     public final CommandXboxController joystick = new CommandXboxController(0);
     public final XboxController accessory = new XboxController(1);
-//     private final CommandXboxController characterizationJoystick = new CommandXboxController(2);
+    private final CommandXboxController characterizationJoystick = new CommandXboxController(2);
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -189,10 +190,10 @@ public class RobotContainer {
 
         // Characterization buttons
         // Note that each routine should be run exactly once in a single log.
-        // characterizationJoystick.y().whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        // characterizationJoystick.a().whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        // characterizationJoystick.povUp().whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        // characterizationJoystick.povDown().whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        characterizationJoystick.y().whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        characterizationJoystick.a().whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        characterizationJoystick.povUp().whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        characterizationJoystick.povDown().whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // Operator buttons
         joystick.leftTrigger(.5).onTrue(new InstantCommand(() -> goalArrangementPlacing())

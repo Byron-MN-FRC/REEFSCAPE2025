@@ -18,6 +18,7 @@ import static edu.wpi.first.units.Units.RotationsPerSecondPerSecond;
 import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Volts;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
@@ -29,10 +30,13 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
@@ -55,6 +59,23 @@ public class Shoulder extends SubsystemBase {
     private final MotionMagicVoltage m_motionMagicReq = new MotionMagicVoltage(0).withSlot(0);
     public double shoulderTarget;
     TalonFXConfiguration shoulderConf = new TalonFXConfiguration();
+    private final 
+    
+     /* SysId routine for characterizing translation. This is used to find PID gains for the shoulder motor. */
+    private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
+        new SysIdRoutine.Config(
+            null,        // Use default ramp rate (1 V/s)
+            Volts.of(4), // Reduce dynamic step voltage to 4 V to prevent brownout
+            null,        // Use default timeout (10 s)
+            // Log state with SignalLogger class
+            state -> SignalLogger.writeString("SysIdTranslation_State", state.toString())
+        ),
+        new SysIdRoutine.Mechanism(
+            output -> setControl(shoulderMotor),
+            null,
+            this
+        )
+    );
 
     /**
     *
@@ -153,12 +174,12 @@ public class Shoulder extends SubsystemBase {
 
     }
 
-    // public boolean isSafeToMoveWrist() {
-    //     double currPos = shoulderMotor.getPosition().getValueAsDouble();
-    //     double quadrant = Constants.ShoulderConstants.shoulderUpperLimit / 4;
-    //     double safeLower = Constants.ShoulderConstants.shoulderLowerLimit + quadrant;
-    //     double safeUpper = Constants.ShoulderConstants.shoulderUpperLimit - quadrant;
-    //     return (currPos >= safeLower && currPos <= safeUpper);
-    // }
+    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+        return m_sysIdRoutineTranslation.quasistatic(direction);
+    }
+
+    public Command sysIdDynamic(SysIdRoutine.Direction direction) {
+        return m_sysIdRoutineTranslation.dynamic(direction);
+    }
 
 }

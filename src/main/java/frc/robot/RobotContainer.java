@@ -202,10 +202,10 @@ public class RobotContainer {
         // Characterization buttons
         // Note that each routine should be run exactly once in a single log.
         //change mechanism to what you want to characterize
-        characterizationJoystick.y().whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        characterizationJoystick.a().whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        characterizationJoystick.povUp().whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        characterizationJoystick.povDown().whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        characterizationJoystick.y().whileTrue(m_shoulder.sysIdDynamic(Direction.kForward));
+        characterizationJoystick.a().whileTrue(m_shoulder.sysIdDynamic(Direction.kReverse));
+        characterizationJoystick.povUp().whileTrue(m_shoulder.sysIdQuasistatic(Direction.kForward));
+        characterizationJoystick.povDown().whileTrue(m_shoulder.sysIdQuasistatic(Direction.kReverse));
 
         // Operator buttons
         joystick.rightTrigger(.5).onTrue(new InstantCommand(() -> goalArrangementPlacing())

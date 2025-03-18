@@ -57,6 +57,7 @@ public class Shoulder extends SubsystemBase {
     private final MotionMagicVoltage m_motionMagicReq = new MotionMagicVoltage(0).withSlot(0);
     public double shoulderTarget;
     TalonFXConfiguration shoulderConf = new TalonFXConfiguration();
+
     private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
         new SysIdRoutine.Config(
             null,        // Use default ramp rate (1 V/s)
@@ -142,7 +143,7 @@ public class Shoulder extends SubsystemBase {
         if (direction == Direction.kForward) {
             return m_sysIdRoutineTranslation.quasistatic(direction).until(() -> shoulderMotor.getPosition().getValueAsDouble() > 130);//tune based off mechanism to not hit hardstop
         } else
-            return m_sysIdRoutineTranslation.quasistatic(direction).until(() -> shoulderMotor.getPosition().getValueAsDouble() < 1);
+            return m_sysIdRoutineTranslation.quasistatic(direction).until(() -> shoulderMotor.getPosition().getValueAsDouble() < 1.5);
     } 
     
 
@@ -150,7 +151,7 @@ public class Shoulder extends SubsystemBase {
         if (direction == Direction.kForward) {
             return m_sysIdRoutineTranslation.dynamic(direction).until(() -> shoulderMotor.getPosition().getValueAsDouble() > 130);//account for extra errors from inertia
         } else
-            return m_sysIdRoutineTranslation.dynamic(direction).until(() -> shoulderMotor.getPosition().getValueAsDouble() < 1);
+            return m_sysIdRoutineTranslation.dynamic(direction).until(() -> shoulderMotor.getPosition().getValueAsDouble() < 1.5);
     }
     public void shoulderMove() {
         //if (Robot.getInstance().m_elevator.isSafeToMoveShoulder(Robot.getInstance().currentArrangementPlacing()))

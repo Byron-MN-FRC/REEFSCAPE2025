@@ -89,7 +89,7 @@ public class RobotContainer {
     // private final SwerveRequest.PointWheelsAt point = new
     // SwerveRequest.PointWheelsAt();
 
-    private final Telemetry logger = new Telemetry(MaxSpeed);
+    //:private final Telemetry logger = new Telemetry(MaxSpeed);
 
     public final CommandXboxController joystick = new CommandXboxController(0);
     public final XboxController accessory = new XboxController(1);
@@ -299,7 +299,7 @@ public class RobotContainer {
                 .andThen(new Store(m_shoulder, m_elevator, m_claw)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        drivetrain.registerTelemetry(logger::telemeterize);
+       //: drivetrain.registerTelemetry(logger::telemeterize);
     }
 
     public Command getAutonomousCommand() {

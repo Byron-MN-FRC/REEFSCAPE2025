@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -91,6 +92,7 @@ public class Robot extends TimedRobot {
     Robot.getInstance().m_shoulder.stopShoulder();
     Robot.getInstance().m_claw.coralZero();
     Robot.getInstance().m_claw.algaeZero();
+    SignalLogger.stop();
   }
 
   @Override
@@ -127,6 +129,7 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void teleopInit() {
+    SignalLogger.start(); 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

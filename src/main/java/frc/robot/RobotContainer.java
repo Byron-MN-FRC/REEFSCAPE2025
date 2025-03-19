@@ -89,7 +89,7 @@ public class RobotContainer {
     // private final SwerveRequest.PointWheelsAt point = new
     // SwerveRequest.PointWheelsAt();
 
-    //:private final Telemetry logger = new Telemetry(MaxSpeed);
+    private final Telemetry logger = new Telemetry(MaxSpeed);
 
     public final CommandXboxController joystick = new CommandXboxController(0);
     public final XboxController accessory = new XboxController(1);
@@ -202,10 +202,10 @@ public class RobotContainer {
         // Characterization buttons
         // Note that each routine should be run exactly once in a single log.
         //change mechanism to what you want to characterize
-        characterizationJoystick.y().whileTrue(m_shoulder.sysIdDynamic(Direction.kForward));
-        characterizationJoystick.a().whileTrue(m_shoulder.sysIdDynamic(Direction.kReverse));
-        characterizationJoystick.povUp().whileTrue(m_shoulder.sysIdQuasistatic(Direction.kForward));
-        characterizationJoystick.povDown().whileTrue(m_shoulder.sysIdQuasistatic(Direction.kReverse));
+        characterizationJoystick.y().whileTrue(m_elevator.sysIdDynamic(Direction.kForward));
+        characterizationJoystick.a().whileTrue(m_elevator.sysIdDynamic(Direction.kReverse));
+        characterizationJoystick.povUp().whileTrue(m_elevator.sysIdQuasistatic(Direction.kForward));
+        characterizationJoystick.povDown().whileTrue(m_elevator.sysIdQuasistatic(Direction.kReverse));
 
         // Operator buttons
         joystick.rightTrigger(.5).onTrue(new InstantCommand(() -> goalArrangementPlacing())
@@ -299,7 +299,7 @@ public class RobotContainer {
                 .andThen(new Store(m_shoulder, m_elevator, m_claw)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-       //: drivetrain.registerTelemetry(logger::telemeterize);
+        drivetrain.registerTelemetry(logger::telemeterize);
     }
 
     public Command getAutonomousCommand() {

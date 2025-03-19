@@ -193,17 +193,17 @@ public class Elevator extends SubsystemBase {
     // here. Call these from Commands.
     public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
         if (direction == Direction.kForward) {
-            return m_sysIdRoutineTranslation.quasistatic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() > 4-0.04); //tune based off mechanism to not hit hardstop
+            return m_sysIdRoutineTranslation.quasistatic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() > 2.2-0.04); //tune based off mechanism to not hit hardstop
         } else
-            return m_sysIdRoutineTranslation.quasistatic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() < 0+0.04);
+            return m_sysIdRoutineTranslation.quasistatic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() < 1+0.04);
     } 
     //need to switch between stages
 
     public Command sysIdDynamic(SysIdRoutine.Direction direction) {
         if (direction == Direction.kForward) {
-            return m_sysIdRoutineTranslation.dynamic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() > 4-0.075); //account for extra errors from inertia
+            return m_sysIdRoutineTranslation.dynamic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() > 2.2-0.075); //account for extra errors from inertia
         } else
-            return m_sysIdRoutineTranslation.dynamic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() < 0+0.075);
+            return m_sysIdRoutineTranslation.dynamic(direction).until(() -> stage1motor.getPosition().getValueAsDouble() < 1+0.075);
     }
     public boolean getBottomSwitch() {
         return elevatorBottomSwitch.get();

@@ -305,9 +305,12 @@ public class RobotContainer {
                 .andThen(new PreZero(m_shoulder, m_elevator,  m_claw, m_algae)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
         
-       final JoystickButton btnClawIntake = new JoystickButton(accessory, XboxController.Button.kRightBumper.value);
-        btnClawIntake.whileTrue(new CoralClawIntake(m_claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        final JoystickButton btnCoralIntake = new JoystickButton(accessory, XboxController.Button.kRightBumper.value);
+        btnCoralIntake.whileTrue(new CoralClawIntake(m_claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
+        final JoystickButton btnCoralEject = new JoystickButton(accessory, XboxController.Axis.kRightTrigger.value);
+        btnCoralEject.whileTrue(new CoralClawDrop(m_claw).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        
         final JoystickButton btnStore = new JoystickButton(accessory, XboxController.Button.kB.value);
         btnStore.onTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
                 .andThen(new Store(m_shoulder, m_elevator, m_claw)
@@ -315,7 +318,10 @@ public class RobotContainer {
 
         final JoystickButton btnAlgaeIntake = new JoystickButton(accessory, XboxController.Button.kLeftBumper.value);
         btnAlgaeIntake.whileTrue(new AlgaeClawIntake(m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
-                
+
+        final JoystickButton btnAlgaeEject = new JoystickButton(accessory, XboxController.Axis.kLeftTrigger.value);
+        btnAlgaeEject.onTrue(new AlgaeClawDrop(m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 

@@ -309,7 +309,7 @@ public class RobotContainer {
         final JoystickButton btnCoralIntake = new JoystickButton(accessory, XboxController.Button.kRightBumper.value);
         btnCoralIntake.whileTrue(new CoralClawIntake(m_coral).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final JoystickButton btnCoralEject = new JoystickButton(accessory, XboxController.Axis.kRightTrigger.value);
+        final JoystickButton btnCoralEject = new JoystickButton(accessory, XboxController.Button.kRightStick.value);
         btnCoralEject.whileTrue(new CoralClawDrop(m_coral).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
         
         final JoystickButton btnStore = new JoystickButton(accessory, XboxController.Button.kB.value);
@@ -320,7 +320,8 @@ public class RobotContainer {
         final JoystickButton btnAlgaeIntake = new JoystickButton(accessory, XboxController.Button.kLeftBumper.value);
         btnAlgaeIntake.whileTrue(new AlgaeClawIntake(m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final JoystickButton btnAlgaeEject = new JoystickButton(accessory, XboxController.Axis.kLeftTrigger.value);
+        final JoystickButton btnAlgaeEject = new JoystickButton(accessory, XboxController.Button.kLeftStick.value);
+        // final Trigger triggerAlgaeEject = new Trigger()
         btnAlgaeEject.onTrue(new AlgaeClawDrop(m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         final JoystickButton btnStopAll = new JoystickButton(accessory, XboxController.Button.kStart.value);

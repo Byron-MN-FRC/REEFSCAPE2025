@@ -249,7 +249,7 @@ public class Constants {
 
     public static final class VisionConstants {
         public static final String limelightName = "limelight-front";
-        public static final String limeLightName2 = "limelight-back";
+        public static final String limelightName2 = "limelight-back";
 
         public static final Pose2d ReefTagOffset = new Pose2d(0, Units.inchesToMeters(17.25), new Rotation2d(Math.PI));
         // public static final Pose2d CoralStationTagOffset = new Pose2d(0, Units.inchesToMeters(25), new Rotation2d()); 

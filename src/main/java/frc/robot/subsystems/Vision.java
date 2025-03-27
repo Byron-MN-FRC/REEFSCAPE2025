@@ -32,14 +32,14 @@ public class Vision extends SubsystemBase {
 
     public Vision() {
         LimelightHelpers.setCameraPose_RobotSpace(Constants.VisionConstants.limelightName, -0.09, 0, 0.44, 0, 0,0);
-        LimelightHelpers.setCameraPose_RobotSpace(Constants.VisionConstants.limeLightName2, -0.093, 0, 0.44, 0, 21, 0);
+        LimelightHelpers.setCameraPose_RobotSpace(Constants.VisionConstants.limelightName2, -0.093, 0, 0.44, 0, 21, 0);
     }
 
     @Override
     public void periodic() {
         
         updateTargetData(Constants.VisionConstants.limelightName);
-        updateTargetData(Constants.VisionConstants.limeLightName2);
+        updateTargetData(Constants.VisionConstants.limelightName2);
         
         SmartDashboard.putNumber("lastTargetFront", lastTargetFront);
         SmartDashboard.putNumber("lastTargetBack", lastTargetBack);
@@ -96,7 +96,7 @@ public class Vision extends SubsystemBase {
             if (llName.equals(Constants.VisionConstants.limelightName)) {
                 lastTargetFront = fidID;
             }
-            if (llName.equals(Constants.VisionConstants.limeLightName2)) {
+            if (llName.equals(Constants.VisionConstants.limelightName2)) {
                 lastTargetBack = fidID;
             }
         }

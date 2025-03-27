@@ -109,7 +109,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     public final CommandXboxController joystick = new CommandXboxController(0);
-    public final XboxController accessory = new XboxController(1);
+    public final CommandXboxController accessory = new CommandXboxController(1);
 //     private final CommandXboxController characterizationJoystick = new CommandXboxController(2);
 
     /* Path follower */
@@ -267,25 +267,25 @@ public class RobotContainer {
         // joystick.a().whileTrue(
         //     new DriveToPosition(drivetrain, Constants.VisionConstants.limeLightName2).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
         joystick.a().whileTrue(
-            new DriveToFeeder(drivetrain, Constants.VisionConstants.limeLightName2, m_alignmentSubsystem).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+            new DriveToFeeder(drivetrain, Constants.VisionConstants.limelightName2, m_alignmentSubsystem).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         // Accessory buttons
-        final POVButton pOVButtonLeft = new POVButton(accessory, 270, 0);
+        final POVButton pOVButtonLeft = new POVButton(accessory.getHID(), 270, 0);
         pOVButtonLeft.onTrue(new SelectPlacement(270).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final POVButton pOVButtonRight = new POVButton(accessory, 90, 0);
+        final POVButton pOVButtonRight = new POVButton(accessory.getHID(), 90, 0);
         pOVButtonRight.onTrue(new SelectPlacement(90).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final POVButton pOVButtonDown = new POVButton(accessory, 180, 0);
+        final POVButton pOVButtonDown = new POVButton(accessory.getHID(), 180, 0);
         pOVButtonDown.onTrue(new SelectPlacement(180).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final POVButton pOVButtonUp = new POVButton(accessory, 0, 0);
+        final POVButton pOVButtonUp = new POVButton(accessory.getHID(), 0, 0);
         pOVButtonUp.onTrue(new SelectPlacement(0).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final JoystickButton btnIncreaseElevator = new JoystickButton(accessory, XboxController.Button.kY.value);
+        final JoystickButton btnIncreaseElevator = new JoystickButton(accessory.getHID(), XboxController.Button.kY.value);
         btnIncreaseElevator.onTrue(new ElevatorIncrease(m_elevator).andThen(new MoveElevator(m_elevator)));
 
-        final JoystickButton btnDecreaseElevator = new JoystickButton(accessory, XboxController.Button.kA.value);
+        final JoystickButton btnDecreaseElevator = new JoystickButton(accessory.getHID(), XboxController.Button.kA.value);
         btnDecreaseElevator.onTrue(new ElevatorDecrease(m_elevator).andThen(new MoveElevator(m_elevator)));
 
         // final JoystickButton btnClimb = new JoystickButton(accessory, XboxController.Button.kStart.value);
@@ -295,36 +295,33 @@ public class RobotContainer {
         // btnClimb.onFalse(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Climb))
         //         .andThen(new Climb(m_shoulder, m_elevator).withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        final JoystickButton btnZeroAll = new JoystickButton(accessory, XboxController.Button.kBack.value);
+        final JoystickButton btnZeroAll = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
         btnZeroAll.onFalse(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Zero))
                 .andThen(new ZeroAll(m_shoulder, m_elevator,  m_coral, m_algae)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        final JoystickButton btnPreZeroAll = new JoystickButton(accessory, XboxController.Button.kBack.value);
+        final JoystickButton btnPreZeroAll = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
         btnPreZeroAll.onTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.PreZero))
                 .andThen(new CoralClawDrop(m_coral))
                 .andThen(new PreZero(m_shoulder, m_elevator,  m_coral, m_algae)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
         
-        final JoystickButton btnCoralIntake = new JoystickButton(accessory, XboxController.Button.kRightBumper.value);
+        final JoystickButton btnCoralIntake = new JoystickButton(accessory.getHID(), XboxController.Button.kRightBumper.value);
         btnCoralIntake.whileTrue(new CoralClawIntake(m_coral).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final JoystickButton btnCoralEject = new JoystickButton(accessory, XboxController.Button.kRightStick.value);
-        btnCoralEject.whileTrue(new CoralClawDrop(m_coral).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        accessory.rightTrigger(0.5).onTrue(new CoralClawDrop(m_coral).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
         
-        final JoystickButton btnStore = new JoystickButton(accessory, XboxController.Button.kB.value);
+        final JoystickButton btnStore = new JoystickButton(accessory.getHID(), XboxController.Button.kB.value);
         btnStore.onTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
                 .andThen(new Store(m_shoulder, m_elevator, m_coral)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        final JoystickButton btnAlgaeIntake = new JoystickButton(accessory, XboxController.Button.kLeftBumper.value);
+        final JoystickButton btnAlgaeIntake = new JoystickButton(accessory.getHID(), XboxController.Button.kLeftBumper.value);
         btnAlgaeIntake.whileTrue(new AlgaeClawIntake(m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final JoystickButton btnAlgaeEject = new JoystickButton(accessory, XboxController.Button.kLeftStick.value);
-        // final Trigger triggerAlgaeEject = new Trigger()
-        btnAlgaeEject.onTrue(new AlgaeClawDrop(m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
+        accessory.leftTrigger(0.5).onTrue(new AlgaeClawDrop(m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        final JoystickButton btnStopAll = new JoystickButton(accessory, XboxController.Button.kStart.value);
+        final JoystickButton btnStopAll = new JoystickButton(accessory.getHID(), XboxController.Button.kStart.value);
         btnStopAll.onTrue(new StopAll(m_elevator, m_shoulder, m_coral, m_algae).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
         
         drivetrain.registerTelemetry(logger::telemeterize);

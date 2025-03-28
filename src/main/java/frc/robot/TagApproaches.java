@@ -214,17 +214,17 @@ public class TagApproaches {
     public Pose2d shiftReefAllign(Pose2d goalBeforeShift) {
         double offset = 0;
 
-        // if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.left) {
-        //     offset = 0.1234;
-        //     if (Robot.VISIONTEST) System.out.println("moving left");
-        // } else if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.right) {
-        //     offset = -0.235;
-        //     if (Robot.VISIONTEST) System.out.println("moving right");
-        // } else {
-        //     offset = 0;
-        //     if (Robot.VISIONTEST) System.out.println("staying in the center");
+        if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.left) {
+            offset = 0.1234;
+            // if (Robot.VISIONTEST) System.out.println("moving left");
+        } else if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.right) {
+            offset = -0.235;
+            // if (Robot.VISIONTEST) System.out.println("moving right");
+        } else {
+            offset = 0;
+            // if (Robot.VISIONTEST) System.out.println("staying in the center");
             
-        // }
+        }
 
         Rotation2d goalAngle = goalBeforeShift.getRotation();
         Translation2d oldTranslation = goalBeforeShift.getTranslation();

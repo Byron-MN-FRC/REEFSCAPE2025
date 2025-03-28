@@ -56,7 +56,7 @@ public class SocialDistancing extends Command {
     public void execute() {
         // SmartDashboard.putBoolean("atTarget", forwardController.atGoal());
         // Drive
-        forwardController.setGoal(0.305);
+        forwardController.setGoal(0.304);
 
         double forwardSpeed = forwardController.calculate(m_distSensor.getDistance());
 

@@ -163,6 +163,7 @@ public class RobotContainer {
         SmartDashboard.putData("CoralClawIntake", new CoralClawIntake(m_coral));
         SmartDashboard.putData("AlgaeClawDrop", new AlgaeClawDrop(m_algae));
         SmartDashboard.putData("AlgaeClawIntake", new AlgaeClawIntake(m_algae));
+        SmartDashboard.putData("DriveToPosition", new DriveToPosition(drivetrain, Constants.VisionConstants.limelightName));
         // SmartDashboard.putData("GrabCoral", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Feeder))
         //         .andThen(new GrabCoral(m_shoulder, m_elevator, m_coral)));
         // SmartDashboard.putData("MoveElevator", new InstantCommand(() -> goalArrangementPlacing())
@@ -194,7 +195,6 @@ public class RobotContainer {
 
         // selector spots
         Constants.Selector.PlacementSelector.initializeTab();
-        Constants.Selector.FeederSelector.initializeTab();
         // SmartDashboard.putString("current setting", currentArrangement);
         // SmartDashboard.putString("goal setting", goalArrangement);
 

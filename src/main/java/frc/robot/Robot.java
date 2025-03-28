@@ -46,9 +46,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
 
-    SmartDashboard.putBoolean("Stage 2", m_robotContainer.getTopStage2());
-    SmartDashboard.putBoolean("usell", kUseLimelight);
-    SmartDashboard.putBoolean("ShoulderTripped", m_robotContainer.getShoulderTripped());
+    // SmartDashboard.putBoolean("usell", kUseLimelight);
 
     // slow down
       if(Robot.getInstance().m_elevator.stage2motor.getPosition().getValueAsDouble() >= Constants.ElevatorConstants.stage2UpperLimit - 1

@@ -23,8 +23,8 @@ public class Vision extends SubsystemBase {
     public boolean tempDisable = false;
     public double timestampToReEnable;
     private Pose2d autoStartPose = new Pose2d();
-    public int lastTargetFront;
-    public int lastTargetBack;
+    public int lastTargetFront = 1;
+    public int lastTargetBack = 1;
 
     public static Vision getInstance() {
         return m_Vision;
@@ -41,17 +41,17 @@ public class Vision extends SubsystemBase {
         updateTargetData(Constants.VisionConstants.limelightName);
         updateTargetData(Constants.VisionConstants.limelightName2);
         
-        SmartDashboard.putNumber("lastTargetFront", lastTargetFront);
-        SmartDashboard.putNumber("lastTargetBack", lastTargetBack);
+        // SmartDashboard.putNumber("lastTargetFront", lastTargetFront);
+        // SmartDashboard.putNumber("lastTargetBack", lastTargetBack);
       
         if (timestampToReEnable < Utils.getCurrentTimeSeconds() &&tempDisable  == true){
             tempDisable = false; 
         }
 
-        SmartDashboard.putBoolean("tempDisable", tempDisable);
+        // SmartDashboard.putBoolean("tempDisable", tempDisable);
 
-        SmartDashboard.putString("placementPosition: " , autoStartPose.toString());
-        SmartDashboard.putString("currentPosition: ", Robot.getInstance().drivetrain.getState().Pose.toString());
+        // SmartDashboard.putString("placementPosition: " , autoStartPose.toString());
+        // SmartDashboard.putString("currentPosition: ", Robot.getInstance().drivetrain.getState().Pose.toString());
 
         if (DriverStation.isAutonomous() && !DriverStation.isEnabled()) {
             // For auto set-up
@@ -64,8 +64,8 @@ public class Vision extends SubsystemBase {
                      autoStartPose.getRotation().getSin() * 
                      Robot.getInstance().drivetrain.getState().Pose.getRotation().getSin());
 
-                SmartDashboard.putNumber("Auto config distance", distance);
-                SmartDashboard.putNumber("Auto config rotation distance", rot_distance);
+                // SmartDashboard.putNumber("Auto config distance", distance);
+                // SmartDashboard.putNumber("Auto config rotation distance", rot_distance);
                 if (distance < 0.2 && (Units.radiansToDegrees(rot_distance) < 4)) {
 
                     LimelightHelpers.setLEDMode_ForceOn(Constants.VisionConstants.limelightName);

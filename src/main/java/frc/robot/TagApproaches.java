@@ -236,13 +236,34 @@ public class TagApproaches {
     
     public Pose2d shiftFeederAllign(Pose2d goalBeforeShift) {
         double offset = 0;
-
-        if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.far) {
-            offset = Units.inchesToMeters(15.75);
-        } else if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.close) {
-            offset = Units.inchesToMeters(25.75) * -1;
+        if (goalBeforeShift.getX() > Constants.VisionConstants.fieldLength / 2) {
+            if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.far) {
+                if (goalBeforeShift.getY() > Constants.VisionConstants.fieldWidth / 2) {
+                    offset = Units.inchesToMeters(15.75);
+                } else {
+                    offset = Units.inchesToMeters(-15.75);
+                }
+            } else if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.close) {
+                if (goalBeforeShift.getY() > Constants.VisionConstants.fieldWidth / 2) {
+                    offset = Units.inchesToMeters(-25.75);
+                } else {
+                    offset = Units.inchesToMeters(25.75);
+                }
+            }
         } else {
-            offset = 0;            
+            if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.far) {
+                if (goalBeforeShift.getY() > Constants.VisionConstants.fieldWidth / 2) {
+                    offset = Units.inchesToMeters(15.75);
+                } else {
+                    offset = Units.inchesToMeters(-15.75);
+                }
+            } else if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.close) {
+                if (goalBeforeShift.getY() > Constants.VisionConstants.fieldWidth / 2) {
+                    offset = Units.inchesToMeters(-25.75);
+                } else {
+                    offset = Units.inchesToMeters(25.75);
+                }
+            }
         }
 
         Rotation2d goalAngle = goalBeforeShift.getRotation();

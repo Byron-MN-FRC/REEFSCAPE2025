@@ -64,9 +64,9 @@ public class DriveToPosition extends Command {
             goalPose = TagApproaches.getInstance().DesiredRobotPos(Vision.getInstance().lastTargetBack);
         }
 
-        SmartDashboard.putString("goal pose", goalPose.toString());
+        // SmartDashboard.putString("goal pose", goalPose.toString());
 
-        SmartDashboard.putString("currentPose", drivetrain.getState().Pose.toString());
+        // SmartDashboard.putString("currentPose", drivetrain.getState().Pose.toString());
         omegaController.reset(drivetrain.getState().Pose.getRotation().getRadians());
         magnitudeController.reset(drivetrain.getState().Pose.getTranslation().getDistance(goalPose.getTranslation()));
         

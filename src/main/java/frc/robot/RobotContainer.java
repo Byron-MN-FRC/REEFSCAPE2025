@@ -163,16 +163,16 @@ public class RobotContainer {
         SmartDashboard.putData("CoralClawIntake", new CoralClawIntake(m_coral));
         SmartDashboard.putData("AlgaeClawDrop", new AlgaeClawDrop(m_algae));
         SmartDashboard.putData("AlgaeClawIntake", new AlgaeClawIntake(m_algae));
-        SmartDashboard.putData("GrabCoral", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Feeder))
-                .andThen(new GrabCoral(m_shoulder, m_elevator, m_coral)));
-        SmartDashboard.putData("MoveElevator", new InstantCommand(() -> goalArrangementPlacing())
-        .andThen(new MoveElevator(m_elevator)));
-        SmartDashboard.putData("MoveShoulder", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
-         .andThen(new MoveShoulder(m_shoulder)));
-        SmartDashboard.putData("PlaceCoral", new InstantCommand(() -> goalArrangementPlacing())
-                .andThen(new PlaceCoral(m_shoulder, m_elevator)));
-        SmartDashboard.putData("Store", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
-                .andThen(new Store(m_shoulder, m_elevator, m_coral)));
+        // SmartDashboard.putData("GrabCoral", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Feeder))
+        //         .andThen(new GrabCoral(m_shoulder, m_elevator, m_coral)));
+        // SmartDashboard.putData("MoveElevator", new InstantCommand(() -> goalArrangementPlacing())
+        // .andThen(new MoveElevator(m_elevator)));
+        // SmartDashboard.putData("MoveShoulder", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
+        //  .andThen(new MoveShoulder(m_shoulder)));
+        // SmartDashboard.putData("PlaceCoral", new InstantCommand(() -> goalArrangementPlacing())
+        //         .andThen(new PlaceCoral(m_shoulder, m_elevator)));
+        // SmartDashboard.putData("Store", new InstantCommand(() -> goalArrangementOthers(PoseSetter.Stored))
+                // .andThen(new Store(m_shoulder, m_elevator, m_coral)));
         SmartDashboard.putData("ZeroAll", new ZeroAll(m_shoulder, m_elevator, m_coral, m_algae));
         SmartDashboard.putData("Zero S1", new ZeroElevatorS1(m_elevator));
         SmartDashboard.putData("Zero S2", new ZeroElevatorS2(m_elevator));
@@ -182,7 +182,7 @@ public class RobotContainer {
         SmartDashboard.putData("Home S1", new HomeElevatorS1(m_elevator));
         SmartDashboard.putData("Home S2", new HomeElevatorS2(m_elevator));
         SmartDashboard.putData("Home Shoulder", new HomeShoulder(m_shoulder));
-        SmartDashboard.putData("Low Algae Grab", new AutonGrabAlgaeLow(m_shoulder, m_elevator, m_algae));
+        // SmartDashboard.putData("Low Algae Grab", new AutonGrabAlgaeLow(m_shoulder, m_elevator, m_algae));
         SmartDashboard.putData("StartPreMatch", new StartPreMatch(m_elevator));
         // SmartDashboard.putBoolean("is safe to move shoulder", m_shoulder.isSafeToMoveShoulder());
         // SmartDashboard.putBoolean("is safe to move elevator", m_elevator.isSafeToMoveElevator());
@@ -195,8 +195,8 @@ public class RobotContainer {
         // selector spots
         Constants.Selector.PlacementSelector.initializeTab();
         Constants.Selector.FeederSelector.initializeTab();
-        SmartDashboard.putString("current setting", currentArrangement);
-        SmartDashboard.putString("goal setting", goalArrangement);
+        // SmartDashboard.putString("current setting", currentArrangement);
+        // SmartDashboard.putString("goal setting", goalArrangement);
 
         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
             field.setRobotPose(pose);
@@ -357,7 +357,7 @@ public class RobotContainer {
         Robot.getInstance().m_shoulder.shoulderTarget = PoseSetter.positionsMap
                 .get(Constants.Selector.PlacementSelector.getLevel())[2];
         goalArrangement = Constants.Selector.PlacementSelector.getLevel();
-        SmartDashboard.putString("goal setting", goalArrangement);
+        // SmartDashboard.putString("goal setting", goalArrangement);
         return goalArrangement;
     }
 
@@ -366,19 +366,19 @@ public class RobotContainer {
         Robot.getInstance().m_elevator.elevatorStage2Target = PoseSetter.positionsMap.get(position)[1];
         Robot.getInstance().m_shoulder.shoulderTarget = PoseSetter.positionsMap.get(position)[2];
         goalArrangement = position;
-        SmartDashboard.putString("goal setting", goalArrangement);
+        // SmartDashboard.putString("goal setting", goalArrangement);
         return goalArrangement;
     }
 
     public String currentArrangementPlacing() {
         currentArrangement = Constants.Selector.PlacementSelector.getLevel();
-        SmartDashboard.putString("current setting", currentArrangement);
+        // SmartDashboard.putString("current setting", currentArrangement);
         return currentArrangement;
     }
 
     public String currentArrangementOthers(String position) {
         currentArrangement = goalArrangementOthers(position);
-        SmartDashboard.putString("current setting", currentArrangement);
+        // SmartDashboard.putString("current setting", currentArrangement);
         return currentArrangement;
     }
 

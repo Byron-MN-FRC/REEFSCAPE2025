@@ -142,11 +142,10 @@ public class Elevator extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        SmartDashboard.putNumber("Bottom Vol", stage1motor.getVelocity().getValueAsDouble());
+        // SmartDashboard.putNumber("Bottom Vol", stage1motor.getVelocity().getValueAsDouble());
         SmartDashboard.putNumber("Bottom Pos", stage1motor.getPosition().getValueAsDouble());
-        SmartDashboard.putNumber("Top Vol", stage2motor.getVelocity().getValueAsDouble());
+        // SmartDashboard.putNumber("Top Vol", stage2motor.getVelocity().getValueAsDouble());
         SmartDashboard.putNumber("Top Pos", stage2motor.getPosition().getValueAsDouble());
-        SmartDashboard.putNumber("Stg2 Target", elevatorStage2Target);
         SmartDashboard.putBoolean("Stage 2", Robot.getInstance().getTopStage2());
 
 //         if (getBottomSwitch() && stage1motor.getPosition().getValueAsDouble()!= Constants.ElevatorConstants.stage1LowerLimit) {

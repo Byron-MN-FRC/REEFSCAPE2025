@@ -199,14 +199,14 @@ public class TagApproaches {
         Translation2d newTranslation = TagTranslation.plus(fieldOrientedOffset);
         Pose2d newPose = new Pose2d(newTranslation, TagAngle.plus(offsetRotation));
         
-        if (Robot.VISIONTEST) {
-            System.out.println("goalBS" + goalBeforeShift);
-            System.out.println("offsetTR" + offsetTagRelative);
-            System.out.println("tA" + TagAngle);
-            System.out.println("tagT" + TagTranslation);
-            System.out.println("fieldOO" + fieldOrientedOffset);
-            System.out.println("newT" + newTranslation);
-        }
+        // if (Robot.VISIONTEST) {
+        //     System.out.println("goalBS" + goalBeforeShift);
+        //     System.out.println("offsetTR" + offsetTagRelative);
+        //     System.out.println("tA" + TagAngle);
+        //     System.out.println("tagT" + TagTranslation);
+        //     System.out.println("fieldOO" + fieldOrientedOffset);
+        //     System.out.println("newT" + newTranslation);
+        // }
         
         return newPose;
     }
@@ -216,13 +216,13 @@ public class TagApproaches {
 
         if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.left) {
             offset = 0.1234;
-            if (Robot.VISIONTEST) System.out.println("moving left");
+            // if (Robot.VISIONTEST) System.out.println("moving left");
         } else if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.right) {
             offset = -0.235;
-            if (Robot.VISIONTEST) System.out.println("moving right");
+            // if (Robot.VISIONTEST) System.out.println("moving right");
         } else {
             offset = 0;
-            if (Robot.VISIONTEST) System.out.println("staying in the center");
+            // if (Robot.VISIONTEST) System.out.println("staying in the center");
             
         }
 
@@ -236,13 +236,45 @@ public class TagApproaches {
     
     public Pose2d shiftFeederAllign(Pose2d goalBeforeShift) {
         double offset = 0;
+        // closer is +-25.75, farther is +-15.75
+        if (goalBeforeShift.getX() > Constants.VisionConstants.fieldLength / 2) {
+            
+            if (goalBeforeShift.getY() > Constants.VisionConstants.fieldWidth / 2) {
+                // top right
+                if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.left) {
+                    offset = Units.inchesToMeters(25.75);
+                } else if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.right) {
+                    offset = Units.inchesToMeters(-15.75);
+                }
+            } else {
+                // bottom right
+                if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.left) {
+                    offset = Units.inchesToMeters(15.75);
+                } else if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.right) {
+                    offset = Units.inchesToMeters(-25.75);
+                }
+            }
 
-        if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.far) {
-            offset = Units.inchesToMeters(15.75);
-        } else if (Constants.Selector.FeederSelector.getFeederSide() == Constants.Selector.FeederSelector.close) {
-            offset = Units.inchesToMeters(25.75) * -1;
         } else {
-            offset = 0;            
+
+            if (goalBeforeShift.getY() > Constants.VisionConstants.fieldWidth / 2) {
+                // top left
+                if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.left) {
+                    offset = Units.inchesToMeters(15.75);
+                } else if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.right) {
+                    offset = Units.inchesToMeters(-25.75);
+                }
+
+            } else {
+                // bottom left
+                if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.left) {
+                    offset = Units.inchesToMeters(25.75);
+                } else if (Constants.Selector.PlacementSelector.getScoringPose() == Constants.Selector.PlacementSelector.right) {
+                    offset = Units.inchesToMeters(-15.75);
+                }
+                
+            }
+
         }
 
         Rotation2d goalAngle = goalBeforeShift.getRotation();

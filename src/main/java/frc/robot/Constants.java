@@ -38,89 +38,6 @@ public class Constants {
             public static final int kLeft = 270;
         }
 
-        public static class FeederSelector {
-
-            private static boolean[][] array = new boolean[2][1];
-            private static int currentRow = 0;
-            private static int currentCol = 0;
-            public static String feederSide = "blank";
-            public static String close = "close";
-            public static String far = "far";
-
-            public FeederSelector() {
-
-                // Initially set the first element to true
-                array[currentRow][currentCol] = true;
-            }
-
-            public static void move(int direction) {
-                // Set the current true element to false
-                array[currentRow][currentCol] = false;
-                SmartDashboard.putBoolean("a"+currentRow + "-" + currentCol, false);
-
-                if (direction == Constants.Selector.DPAD.kDown && currentRow > 0) {
-                    currentRow--;
-                } else if (direction == Constants.Selector.DPAD.kUp && currentRow < array.length - 1) {
-                    currentRow++;
-                } else if (direction == Constants.Selector.DPAD.kLeft && currentCol > 0) {
-                    currentCol--;
-                } else if (direction == Constants.Selector.DPAD.kRight && currentCol < array[0].length - 1) {
-                    currentCol++;
-                }
-
-                // Set the new position to true
-                array[currentRow][currentCol] = true;
-                SmartDashboard.putBoolean("a"+currentRow + "-" + currentCol, true);
-            }
-
-            public static int getCurrentRow() {
-                return currentRow;
-            }
-
-            public static void setCurrentRow(int newRow) {
-                // Set the current true element to false
-                array[currentRow][currentCol] = false;
-                SmartDashboard.putBoolean("a"+currentRow + "-" + currentCol, false);
-
-                if (newRow >= 0 && newRow <= (array.length -1)) {
-                    currentRow = newRow;
-                }
-
-                // Set the new position to true
-                array[currentRow][currentCol] = true;
-                SmartDashboard.putBoolean("a"+currentRow + "-" + currentCol, true);
-            }
-
-            public static void initializeTab() {
-                for (int i = 0; i<array.length; i++){
-                    for (int j = 0; j<array[i].length; j++){
-                        array[i][j] = false;
-                        SmartDashboard.putBoolean("a" + i+"-"+j, false);
-                    }
-                }
-                array[currentRow][currentCol] 
-                = true;
-                SmartDashboard.putBoolean("a"+currentRow+"-"+currentCol, true);
-
-            }
-
-            public static void printArray() {
-                for (boolean[] row : array) {
-                    for (boolean element : row) {
-                        System.out.print(element + " ");
-                    }
-                    System.out.println();
-                }
-            }
-
-            public static String getFeederSide(){
-                if (getCurrentRow() == 0) feederSide = close;
-                else if (getCurrentRow() == 1) feederSide = far;
-                return feederSide;
-            }
-
-        }
-
         public static class PlacementSelector {
 
             private static boolean[][] array = new boolean[4][2];
@@ -249,8 +166,11 @@ public class Constants {
 
     public static final class VisionConstants {
         public static final String limelightName = "limelight-front";
-        public static final String limeLightName2 = "limelight-back";
+        public static final String limelightName2 = "limelight-back";
 
+        public static final double fieldWidth = 8.052;
+        public static final double fieldLength = 17.548;
+        
         public static final Pose2d ReefTagOffset = new Pose2d(0, Units.inchesToMeters(17.25), new Rotation2d(Math.PI));
         // public static final Pose2d CoralStationTagOffset = new Pose2d(0, Units.inchesToMeters(25), new Rotation2d()); 
         public static final Pose2d CoralStationTagOffset = new Pose2d(0, Units.inchesToMeters(27), new Rotation2d());

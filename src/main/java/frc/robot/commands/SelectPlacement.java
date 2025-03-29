@@ -51,7 +51,6 @@ public class SelectPlacement extends Command {
     public void initialize() {
         // Constants.PlacementSelector.printArray();
         Constants.Selector.PlacementSelector.move(m_Selection);
-        Constants.Selector.FeederSelector.move(m_Selection);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

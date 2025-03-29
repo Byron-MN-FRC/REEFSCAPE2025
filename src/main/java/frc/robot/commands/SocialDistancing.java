@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Robot;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.AlignmentSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -53,15 +54,15 @@ public class SocialDistancing extends Command {
 
     @Override
     public void execute() {
-        SmartDashboard.putBoolean("atTarget", forwardController.atGoal());
+        // SmartDashboard.putBoolean("atTarget", forwardController.atGoal());
         // Drive
-        forwardController.setGoal(0.305);
+        forwardController.setGoal(0.304);
 
         double forwardSpeed = forwardController.calculate(m_distSensor.getDistance());
 
 
-        SmartDashboard.putNumber("forward speed", forwardSpeed);
-        SmartDashboard.putNumber("distance from goal", m_distSensor.getDistance());
+        // SmartDashboard.putNumber("forward speed", forwardSpeed);
+        // SmartDashboard.putNumber("distance from goal", m_distSensor.getDistance());
         if (forwardController.atGoal()) {
             forwardSpeed = 0;
         }
@@ -69,7 +70,7 @@ public class SocialDistancing extends Command {
         m_drivetrain.setControl(
             driveRobotCentric
                 .withVelocityX(forwardSpeed * MaxSpeed)
-                .withVelocityY(0)
+                .withVelocityY(Robot.getInstance().joystick.getLeftX() * MaxSpeed * 0.2)
                 .withRotationalRate(0)
         );
     }
@@ -80,7 +81,7 @@ public class SocialDistancing extends Command {
     
     @Override
     public boolean isFinished() {
-        return forwardController.atGoal();
+        return false;
     }
     
 }

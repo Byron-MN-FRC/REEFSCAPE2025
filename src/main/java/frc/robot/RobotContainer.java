@@ -143,7 +143,7 @@ public class RobotContainer {
         shoulderAndTopCandi = new CANdi(31, "rio");
         clawCandi = new CANdi(30, "rio");
 
-        autoChooser = AutoBuilder.buildAutoChooser("Autonomous Command");
+        autoChooser = AutoBuilder.buildAutoChooser("Leave");
         autoChooser.onChange(new Consumer<Command>() {
                 public void accept(Command t) {
                     m_vision.updateAutoStartPosition(autoChooser.getSelected().getName());

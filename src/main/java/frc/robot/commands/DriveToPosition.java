@@ -33,7 +33,7 @@ public class DriveToPosition extends Command {
     private static final TrapezoidProfile.Constraints OMEGA_CONSTRAINTS = new TrapezoidProfile.Constraints(8, 8);
     
     private final ProfiledPIDController magnitudeController = new ProfiledPIDController(2.75, 0, 0, Magnitude_Constraints);
-    private final ProfiledPIDController omegaController = new ProfiledPIDController(5, 0, .1, OMEGA_CONSTRAINTS);
+    private final ProfiledPIDController omegaController = new ProfiledPIDController(4, 0, .1, OMEGA_CONSTRAINTS);
 
     private String _limelightName = Constants.VisionConstants.limelightName;
     private final CommandSwerveDrivetrain drivetrain;
@@ -60,13 +60,13 @@ public class DriveToPosition extends Command {
         if (_limelightName == Constants.VisionConstants.limelightName) {
             goalPose = TagApproaches.getInstance().DesiredRobotPos(Vision.getInstance().lastTargetFront);
         }
-        if (_limelightName == Constants.VisionConstants.limeLightName2) {
+        if (_limelightName == Constants.VisionConstants.limelightName2) {
             goalPose = TagApproaches.getInstance().DesiredRobotPos(Vision.getInstance().lastTargetBack);
         }
 
-        SmartDashboard.putString("goal pose", goalPose.toString());
+        // SmartDashboard.putString("goal pose", goalPose.toString());
 
-        SmartDashboard.putString("currentPose", drivetrain.getState().Pose.toString());
+        // SmartDashboard.putString("currentPose", drivetrain.getState().Pose.toString());
         omegaController.reset(drivetrain.getState().Pose.getRotation().getRadians());
         magnitudeController.reset(drivetrain.getState().Pose.getTranslation().getDistance(goalPose.getTranslation()));
         

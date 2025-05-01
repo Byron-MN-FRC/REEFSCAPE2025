@@ -38,9 +38,9 @@ import frc.robot.commands.ElevatorIncrease;
 import frc.robot.commands.GrabAlgae;
 import frc.robot.commands.GrabCoral;
 import frc.robot.commands.MoveElevator;
-import frc.robot.commands.MoveShoulder;
 import frc.robot.commands.PlaceAlgae;
 import frc.robot.commands.PlaceCoral;
+import frc.robot.commands.ResetDrivetrainRotation;
 import frc.robot.commands.SelectPlacement;
 import frc.robot.commands.SocialDistancing;
 import frc.robot.commands.StartPreMatch;
@@ -228,6 +228,11 @@ public class RobotContainer {
                 // Drive counterclockwise with negative X (left)
                 ));
 
+        m_vision.setDefaultCommand(
+                m_vision.updateVisionMeasurement(drivetrain, Constants.VisionConstants.limelightName)
+                        .andThen(m_vision.updateVisionMeasurement(drivetrain, Constants.VisionConstants.limelightName2))
+        );
+
         // Characterization buttons
         // Note that each routine should be run exactly once in a single log.
         // characterizationJoystick.y().whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
@@ -256,9 +261,9 @@ public class RobotContainer {
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
         joystick.y().onTrue(new InstantCommand(() -> slow()));
-        joystick.start().onTrue(new InstantCommand(() -> m_vision.tempDisable(0.5)).andThen(drivetrain.runOnce(() -> drivetrain.seedFieldCentric())));
+        // joystick.start().onTrue(new InstantCommand(() -> m_vision.tempDisable(0.5)).andThen(drivetrain.runOnce(() -> drivetrain.seedFieldCentric())));
+        joystick.start().onTrue(new ResetDrivetrainRotation(drivetrain, m_vision).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
-        // Op Test Buttons TODO Reassign
         joystick.b().whileTrue(
                 new DriveToPosition(drivetrain, Constants.VisionConstants.limelightName).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
         

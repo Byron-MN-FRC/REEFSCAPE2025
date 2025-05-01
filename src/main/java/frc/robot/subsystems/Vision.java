@@ -20,7 +20,6 @@ import frc.robot.Robot;
 public class Vision extends SubsystemBase {
 
     private static final Vision m_Vision = new Vision();
-    public boolean tempDisable = false;
     public double timestampToReEnable;
     private Pose2d autoStartPose = new Pose2d();
     public int lastTargetFront = 1;
@@ -44,10 +43,6 @@ public class Vision extends SubsystemBase {
         // SmartDashboard.putNumber("lastTargetFront", lastTargetFront);
         // SmartDashboard.putNumber("lastTargetBack", lastTargetBack);
       
-        if (timestampToReEnable < Utils.getCurrentTimeSeconds() &&tempDisable  == true){
-            tempDisable = false; 
-        }
-
         // SmartDashboard.putBoolean("tempDisable", tempDisable);
 
         // SmartDashboard.putString("placementPosition: " , autoStartPose.toString());

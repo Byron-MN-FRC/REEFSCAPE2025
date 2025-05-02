@@ -230,7 +230,6 @@ public class RobotContainer {
 
         m_vision.setDefaultCommand(
                 m_vision.updateVisionMeasurement(drivetrain, Constants.VisionConstants.limelightName)
-                        .andThen(m_vision.updateVisionMeasurement(drivetrain, Constants.VisionConstants.limelightName2))
         );
 
         // Characterization buttons

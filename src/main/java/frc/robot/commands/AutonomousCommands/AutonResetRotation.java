@@ -15,24 +15,27 @@ public class AutonResetRotation extends Command {
 
     private final Vision m_Vision;
     private final CommandSwerveDrivetrain drivetrain;
+    private final Timer m_timer = new Timer();
 
     /** Creates a new AutonResetRotation. */
     public AutonResetRotation(CommandSwerveDrivetrain drivetrain, Vision m_Vision) {
         this.drivetrain = drivetrain;
         this.m_Vision = m_Vision;
-        addRequirements(drivetrain);
+        m_timer.reset();
+        addRequirements(drivetrain, m_Vision);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_Vision.tempDisable(0.5);
+        /* This uses reset rotation rather than seed field centric
+           equivalent to calling seedFieldCentric and adding Math.PI */
         drivetrain.resetRotation(drivetrain.getOperatorForwardDirection().plus(new Rotation2d(Math.PI)));
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return !m_Vision.tempDisable;
+        return m_timer.hasElapsed(0.5);
     }
 }

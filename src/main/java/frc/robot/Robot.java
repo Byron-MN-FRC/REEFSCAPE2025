@@ -24,7 +24,6 @@ public class Robot extends TimedRobot {
 
   private double targetSlow = 1;
 
-  public static boolean kUseLimelight = true;
   public static boolean VISIONTEST = false;
   public static boolean COMMAND_DEBUG = false;
   public static boolean DRIVE_TO_POSITION_DEBUG = false;
@@ -59,33 +58,6 @@ public class Robot extends TimedRobot {
     if (!Robot.getInstance().isSlowBtn){
     Robot.getInstance().percentSlow += (targetSlow - Robot.getInstance().percentSlow) * Constants.SwerveConstants.smoothingFactor;
     }
-
-
-    
-    /*
-     * This example of adding Limelight is very simple and may not be sufficient for
-     * on-field use.
-     * Users typically need to provide a standard deviation that scales with the
-     * distance to target
-     * and changes with number of tags available.
-     *
-     * This example is sufficient to show that vision integration is possible,
-     * though exact implementation
-     * of how to use vision should be tuned per-robot and to the team's
-     * specification.
-     */
-    if (kUseLimelight) {
-      var driveState = m_robotContainer.drivetrain.getState();
-      double headingDeg = driveState.Pose.getRotation().getDegrees();
-      double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
-
-      LimelightHelpers.SetRobotOrientation(Constants.VisionConstants.limelightName, headingDeg, 0, 0, 0, 0, 0);
-      var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(Constants.VisionConstants.limelightName);
-      if (llMeasurement != null && llMeasurement.tagCount > 0 && omegaRps < 1.5 && !Robot.getInstance().m_vision.tempDisable) {
-        m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose,
-            Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
-      }
-    }
   }
 
   @Override
@@ -107,7 +79,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    kUseLimelight = true;
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_autonomousReefLevel = m_robotContainer.getSelectedAutoLevel();
@@ -130,8 +101,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousExit() {
-  kUseLimelight = true;
-  Robot.getInstance().m_vision.tempDisable = false;
   }
   @Override
   public void teleopInit() {

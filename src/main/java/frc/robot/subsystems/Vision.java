@@ -20,7 +20,6 @@ import frc.robot.Robot;
 public class Vision extends SubsystemBase {
 
     private static final Vision m_Vision = new Vision();
-    public double timestampToReEnable;
     private Pose2d autoStartPose = new Pose2d();
     public int lastTargetFront = 1;
     public int lastTargetBack = 1;
@@ -106,11 +105,6 @@ public class Vision extends SubsystemBase {
      *  @Param seconds The time period to disable for (tested at .5 seconds)
      *  @return void
      */
-    public void tempDisable(double seconds) {
-        tempDisable = true;
-        double currentTime = Utils.getCurrentTimeSeconds();
-        timestampToReEnable = currentTime + seconds;
-    }
 
     public void updateAutoStartPosition(String autoName) {
 
@@ -130,5 +124,26 @@ public class Vision extends SubsystemBase {
             autoStartPose = new Pose2d();
         } 
 
+    }
+
+    public void updatePoseEstimation(Sring camera) {
+        /*
+        * Users typically need to provide a standard deviation that scales with the
+        * distance to target
+        * and changes with number of tags available.
+        * exact implementation
+        * of how to use vision should be tuned per-robot and to the team's
+        * specification.
+        */
+        var driveState = Robot.getInstance().drivetrain.getState();
+        double headingDeg = driveState.Pose.getRotation().getDegrees();
+        double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
+
+        LimelightHelpers.SetRobotOrientation(camera, headingDeg, 0, 0, 0, 0, 0);
+        var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(camera);
+        if (llMeasurement != null && llMeasurement.tagCount > 0 && omegaRps < 1.5) {
+            m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose,
+            Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
+        }
     }
 }

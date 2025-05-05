@@ -46,10 +46,10 @@ import frc.robot.commands.SocialDistancing;
 import frc.robot.commands.StartPreMatch;
 import frc.robot.commands.StopAll;
 import frc.robot.commands.Store;
+import frc.robot.commands.VisionDefaultCommand;
 import frc.robot.commands.AutonomousCommands.AutonAlgaeCarry;
 import frc.robot.commands.AutonomousCommands.AutonAlgaeDrop;
 import frc.robot.commands.AutonomousCommands.AutonCoralDrop;
-import frc.robot.commands.AutonomousCommands.AutonDisableVision;
 import frc.robot.commands.AutonomousCommands.AutonGrabAlgaeL2;
 import frc.robot.commands.AutonomousCommands.AutonGrabAlgaeL3;
 import frc.robot.commands.AutonomousCommands.AutonGrabAlgaeLow;
@@ -137,8 +137,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonGrabAlgaeLow", new AutonGrabAlgaeLow(m_shoulder, m_elevator, m_algae));
         NamedCommands.registerCommand("AutonAlgaeCarry", new AutonAlgaeCarry(m_algae)); // use with race group
         NamedCommands.registerCommand("AutonResetRotation", new AutonResetRotation(drivetrain, m_vision));
-        NamedCommands.registerCommand("AutonDisableVision", new AutonDisableVision(m_vision));
-        NamedCommands.registerCommand("AutonEnableVision", new InstantCommand(() -> Robot.kUseLimelight = true));
+
 
         shoulderAndTopCandi = new CANdi(31, "rio");
         clawCandi = new CANdi(30, "rio");
@@ -229,7 +228,7 @@ public class RobotContainer {
                 ));
 
         m_vision.setDefaultCommand(
-                m_vision.updateVisionMeasurement(drivetrain, Constants.VisionConstants.limelightName)
+            new VisionDefaultCommand(m_vision, Constants.VisionConstants.limelightName)
         );
 
         // Characterization buttons

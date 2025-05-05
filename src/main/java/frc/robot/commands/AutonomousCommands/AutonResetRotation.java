@@ -5,8 +5,8 @@
 package frc.robot.commands.AutonomousCommands;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Robot;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.Vision;
 
@@ -18,11 +18,11 @@ public class AutonResetRotation extends Command {
     private final Timer m_timer = new Timer();
 
     /** Creates a new AutonResetRotation. */
-    public AutonResetRotation(CommandSwerveDrivetrain drivetrain, Vision m_Vision) {
+    public AutonResetRotation(CommandSwerveDrivetrain drivetrain, Vision vision) {
         this.drivetrain = drivetrain;
-        this.m_Vision = m_Vision;
+        m_Vision = vision;
         m_timer.reset();
-        addRequirements(drivetrain, m_Vision);
+        addRequirements(m_Vision);
     }
 
     // Called when the command is initially scheduled.

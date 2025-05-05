@@ -6,8 +6,6 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 
 import java.util.Optional;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -17,7 +15,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.LimelightHelpers;
 import frc.robot.Robot;
 import frc.robot.TagApproaches;
 import frc.robot.generated.TunerConstants;

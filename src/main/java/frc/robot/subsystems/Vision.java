@@ -11,7 +11,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
@@ -126,7 +125,7 @@ public class Vision extends SubsystemBase {
 
     }
 
-    public void updatePoseEstimation(Sring camera) {
+    public void updatePoseEstimation(String camera) {
         /*
         * Users typically need to provide a standard deviation that scales with the
         * distance to target
@@ -142,7 +141,7 @@ public class Vision extends SubsystemBase {
         LimelightHelpers.SetRobotOrientation(camera, headingDeg, 0, 0, 0, 0, 0);
         var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(camera);
         if (llMeasurement != null && llMeasurement.tagCount > 0 && omegaRps < 1.5) {
-            m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose,
+            Robot.getInstance().drivetrain.addVisionMeasurement(llMeasurement.pose,
             Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
         }
     }

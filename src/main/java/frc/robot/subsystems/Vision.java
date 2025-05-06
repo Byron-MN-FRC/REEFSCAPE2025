@@ -21,7 +21,6 @@ public class Vision extends SubsystemBase {
 
     private static final Vision m_Vision = new Vision();
     public boolean tempDisable = false;
-    public double timestampToReEnable;
     private Pose2d autoStartPose = new Pose2d();
     public int lastTargetFront = 1;
     public int lastTargetBack = 1;
@@ -44,9 +43,6 @@ public class Vision extends SubsystemBase {
         // SmartDashboard.putNumber("lastTargetFront", lastTargetFront);
         // SmartDashboard.putNumber("lastTargetBack", lastTargetBack);
       
-        if (timestampToReEnable < Utils.getCurrentTimeSeconds() &&tempDisable  == true){
-            tempDisable = false; 
-        }
 
         // SmartDashboard.putBoolean("tempDisable", tempDisable);
 
@@ -102,21 +98,6 @@ public class Vision extends SubsystemBase {
         }
     }
     
-    /**
-     *  Temporarily disables the addVisionMeasurements method in Robot.java
-     *  
-     *  The purpose of this method is to remove errors caused during resetting
-     *  the rotation of the robot when the cameras can see an April Tag
-     * 
-     *  @Param seconds The time period to disable for (tested at .5 seconds)
-     *  @return void
-     */
-    public void tempDisable(double seconds) {
-        tempDisable = true;
-        double currentTime = Utils.getCurrentTimeSeconds();
-        timestampToReEnable = currentTime + seconds;
-    }
-
     public void updateAutoStartPosition(String autoName) {
 
         // Instant Command is the name of the "None" Auto

@@ -38,9 +38,9 @@ import frc.robot.commands.ElevatorIncrease;
 import frc.robot.commands.GrabAlgae;
 import frc.robot.commands.GrabCoral;
 import frc.robot.commands.MoveElevator;
-import frc.robot.commands.MoveShoulder;
 import frc.robot.commands.PlaceAlgae;
 import frc.robot.commands.PlaceCoral;
+import frc.robot.commands.ResetRotation;
 import frc.robot.commands.SelectPlacement;
 import frc.robot.commands.SocialDistancing;
 import frc.robot.commands.StartPreMatch;
@@ -256,7 +256,7 @@ public class RobotContainer {
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
         joystick.y().onTrue(new InstantCommand(() -> slow()));
-        joystick.start().onTrue(new InstantCommand(() -> m_vision.tempDisable(0.5)).andThen(drivetrain.runOnce(() -> drivetrain.seedFieldCentric())));
+        joystick.start().onTrue(new ResetRotation(drivetrain, m_vision).withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         // Op Test Buttons TODO Reassign
         joystick.b().whileTrue(

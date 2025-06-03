@@ -79,7 +79,7 @@ public class Elevator extends SubsystemBase {
         CurrentLimitsConfigs elevatorLowerCurrent = elevatorLowerConfig.CurrentLimits;
         CurrentLimitsConfigs elevatorUpperCurrent = elevatorUpperConfig.CurrentLimits;
         elevatorLowerCurrent.StatorCurrentLimit = 25;
-        elevatorUpperCurrent.StatorCurrentLimit = 40;
+        elevatorUpperCurrent.StatorCurrentLimit = 30;
         // SoftwareLimitSwitchConfigs elevatorLowerSoftSwitch = elevatorLowerConfig.SoftwareLimitSwitch;
         // elevatorLowerSoftSwitch.ForwardSoftLimitEnable = true;
         // elevatorLowerSoftSwitch.ForwardSoftLimitThreshold = 2.5;

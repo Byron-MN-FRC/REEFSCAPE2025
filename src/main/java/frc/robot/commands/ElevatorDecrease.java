@@ -6,17 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.ElevatorS2;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ElevatorDecrease extends Command {
 
-  private final Elevator m_elevator;
+  private final ElevatorS2 m_elevatorS2;
 
-  public ElevatorDecrease(Elevator subsystem) {
+  public ElevatorDecrease(ElevatorS2 subsystem) {
 
-    m_elevator = subsystem;
-    addRequirements(m_elevator);
+    m_elevatorS2 = subsystem;
+    addRequirements(m_elevatorS2);
   }
 
   // Called when the command is initially scheduled.
@@ -28,7 +28,7 @@ public class ElevatorDecrease extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_elevator.decrease();
+    m_elevatorS2.decrease();
   }
 
   // Called once the command ends or is interrupted.

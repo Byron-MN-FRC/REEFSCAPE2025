@@ -49,10 +49,10 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putBoolean("usell", kUseLimelight);
 
     // slow down
-      if(Robot.getInstance().m_elevator.stage2motor.getPosition().getValueAsDouble() >= Constants.ElevatorConstants.stage2UpperLimit - 1
-        && Robot.getInstance().m_elevator.stage1motor.getPosition().getValueAsDouble() >= Constants.ElevatorConstants.stage1UpperLimit - 1)
+      if(Robot.getInstance().m_elevatorS2.stage2motor.getPosition().getValueAsDouble() >= Constants.ElevatorConstants.stage2UpperLimit - 1
+        && Robot.getInstance().m_elevatorS1.stage1motor.getPosition().getValueAsDouble() >= Constants.ElevatorConstants.stage1UpperLimit - 1)
         {targetSlow = .5;}
-      else if (Robot.getInstance().m_elevator.stage2motor.getPosition().getValueAsDouble() >= Constants.ElevatorConstants.stage2UpperLimit - 1)
+      else if (Robot.getInstance().m_elevatorS2.stage2motor.getPosition().getValueAsDouble() >= Constants.ElevatorConstants.stage2UpperLimit - 1)
         {targetSlow = .75;}
       else targetSlow = 1;
 
@@ -90,7 +90,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    Robot.getInstance().m_elevator.stopBothMotors();
+    Robot.getInstance().m_elevatorS1.stopMotor();
+    Robot.getInstance().m_elevatorS2.stopMotor();
     Robot.getInstance().m_shoulder.stopShoulder();
     Robot.getInstance().m_coral.coralZero();
     Robot.getInstance().m_algae.algaeZero();

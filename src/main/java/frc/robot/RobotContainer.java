@@ -64,6 +64,7 @@ import frc.robot.commands.Zeroing.HomeElevatorS2;
 import frc.robot.commands.Zeroing.HomeShoulder;
 import frc.robot.commands.Zeroing.PreZero;
 import frc.robot.commands.Zeroing.ZeroAll;
+import frc.robot.commands.Zeroing.ZeroAllNew;
 import frc.robot.commands.Zeroing.ZeroElevatorS1;
 import frc.robot.commands.Zeroing.ZeroElevatorS2;
 import frc.robot.commands.Zeroing.ZeroShoulder;
@@ -334,6 +335,10 @@ public class RobotContainer {
                 .andThen(new CoralClawDrop(m_coral))
                 .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
+
+        final JoystickButton btnZeroNew = new JoystickButton(accessory.getHID(), XboxController.Button.kStart.value);
+        btnZeroNew.onTrue(new ZeroAllNew(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
+                .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         final JoystickButton btnCoralIntake = new JoystickButton(accessory.getHID(),
                 XboxController.Button.kRightBumper.value);

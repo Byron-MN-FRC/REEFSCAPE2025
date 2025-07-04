@@ -31,6 +31,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CombinedStallHandler;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.StallSpeed;
 import frc.robot.StallTimer;
@@ -54,8 +55,8 @@ public class Shoulder extends SubsystemBase {
     private final MotionMagicVoltage m_motionMagicReq = new MotionMagicVoltage(0).withSlot(0);
     public double shoulderTarget;
     TalonFXConfiguration shoulderConf = new TalonFXConfiguration();
-    StallTimer shoulderStallTimer;
-    CombinedStallHandler shoulderCombinedStallHandler;
+    public StallTimer shoulderStallTimer;
+    public CombinedStallHandler shoulderCombinedStallHandler;
 
 
     /**
@@ -69,7 +70,7 @@ public class Shoulder extends SubsystemBase {
 
         // Configs
         CurrentLimitsConfigs shoulderCurrent = shoulderConf.CurrentLimits;
-        shoulderCurrent.StatorCurrentLimit = 25;
+        shoulderCurrent.StatorCurrentLimit = Constants.ShoulderConstants.shoulderStandardCurrentLimit;
         MotorOutputConfigs shoulderOutput = shoulderConf.MotorOutput;
         shoulderOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         shoulderOutput.NeutralMode = NeutralModeValue.Brake;
@@ -152,6 +153,14 @@ public class Shoulder extends SubsystemBase {
 
     }
 
+    public void setShoulderZeroingSecond() {
+        if (isShoulderTripped()) {
+            shoulderMotor.set(0);
+        } else {
+            shoulderMotor.set(0.15);
+        }
+    }
+
     public void setShoulderHoming(){
         if (!isShoulderTripped()) {
             shoulderMotor.set(0);
@@ -178,4 +187,19 @@ public class Shoulder extends SubsystemBase {
     //     // double safeUpper = Constants.ElevatorConstants.stage2UpperLimit - quadrant;
     //     return (currPos >= safeLower);
     // } 
+
+    public void setCurrentLimit(double amps) {
+        CurrentLimitsConfigs newAmps = new CurrentLimitsConfigs().withStatorCurrentLimit(amps);
+
+        StatusCode status = StatusCode.StatusCodeNotInitialized;
+        for (int i = 0; i < 5; ++i) {
+            status = shoulderMotor.getConfigurator().apply(newAmps);
+            if (status.isOK())
+                break;
+        }
+        if (!status.isOK()) {
+            System.out.println("Could not configure device. Error: " + status.toString());
+        }
+    }
+
 }

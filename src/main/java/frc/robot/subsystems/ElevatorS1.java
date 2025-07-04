@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CombinedStallHandler;
+import frc.robot.Constants;
 import frc.robot.StallSpeed;
 import frc.robot.StallTimer;
 
@@ -79,9 +80,7 @@ public class ElevatorS1 extends SubsystemBase {
         // elevatorUpperFeedback.SensorToMechanismRatio = 45;
         elevatorLowerFeedback.SensorToMechanismRatio = 20;
         CurrentLimitsConfigs elevatorLowerCurrent = elevatorLowerConfig.CurrentLimits;
-        // CurrentLimitsConfigs elevatorUpperCurrent = elevatorUpperConfig.CurrentLimits;
-        elevatorLowerCurrent.StatorCurrentLimit = 25;
-        // elevatorUpperCurrent.StatorCurrentLimit = 25;
+        elevatorLowerCurrent.StatorCurrentLimit = Constants.ElevatorConstants.stage1StandardCurrentLimit;
         // SoftwareLimitSwitchConfigs elevatorLowerSoftSwitch = elevatorLowerConfig.SoftwareLimitSwitch;
         // elevatorLowerSoftSwitch.ForwardSoftLimitEnable = true;
         // elevatorLowerSoftSwitch.ForwardSoftLimitThreshold = 2.5;
@@ -182,18 +181,10 @@ public class ElevatorS1 extends SubsystemBase {
         return elevatorBottomSwitch.get();
     }
 
-    // public boolean getTopSwitch() {
-        // return Robot.getInstance().getTopStage2();
-    // }
-
     public boolean isMotorOneAtPos() {
     
         return Math.abs(stage1motor.getPosition().getValueAsDouble() - elevatorStage1Target) < .1;
     }
-
-    // public boolean isMotorTwoAtPos() {
-        // return Math.abs(stage2motor.getPosition().getValueAsDouble() - elevatorStage2Target) < .1;
-    // }
 
     public void setElevatorPosition() {
         // if (isSafeToMoveElevator()){
@@ -230,6 +221,14 @@ public class ElevatorS1 extends SubsystemBase {
         }
     }
 
+    public void setElevatorZeroingS1Upward() {
+        if (getBottomSwitch()) {
+            stage1motor.set(0);
+        } else {
+            stage1motor.set(0.2);
+        }
+    }
+
     public void setElevatorHomingS1(){
         if (!getBottomSwitch()) {
             stage1motor.set(0);
@@ -237,32 +236,6 @@ public class ElevatorS1 extends SubsystemBase {
             stage1motor.set(0.1);
         }
     }
-
-    // public void setElevatorZeroingS2(){
-        // if (getTopSwitch()) {
-        //    stage2motor.set(0);
-        // } else {
-            // stage2motor.set(0.2);
-        // }
-    // }
-
-    // public void setElevatorHomingS2(){
-        // if (!getTopSwitch()) {
-        //    stage2motor.set(0);
-        // } else {
-            // stage2motor.set(-0.1);
-        // }
-    // }
-
-    // public void increase(){
-        // if (elevatorStage2Target + 0.1f <= Constants.ElevatorConstants.stage2UpperLimit)
-            // elevatorStage2Target += 0.1f;
-    // }
-
-    // public void decrease(){
-        // if (elevatorStage2Target - 0.1f >= Constants.ElevatorConstants.stage2LowerLimit)
-            // elevatorStage2Target -= 0.1f;
-    // }
 
     // public boolean isSafeToMoveElevator() {
     //     double currPos = Robot.getInstance().m_shoulder.shoulderMotor.getPosition().getValueAsDouble();
@@ -276,8 +249,18 @@ public class ElevatorS1 extends SubsystemBase {
         stage1motor.setPosition(position);
     }
 
-    // public void setStage2MotorPosition(double position){
-        // stage2motor.setPosition(position);
-    // }
+    public void setCurrentLimit(double amps) {
+        CurrentLimitsConfigs newAmps = new CurrentLimitsConfigs().withStatorCurrentLimit(amps);
+
+        StatusCode status = StatusCode.StatusCodeNotInitialized;
+        for (int i = 0; i < 5; ++i) {
+            status = stage1motor.getConfigurator().apply(newAmps);
+            if (status.isOK())
+                break;
+        }
+        if (!status.isOK()) {
+            System.out.println("Could not configure device. Error: " + status.toString());
+        }
+    }
     
 }

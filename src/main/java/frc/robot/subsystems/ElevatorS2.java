@@ -63,8 +63,8 @@ public class ElevatorS2 extends SubsystemBase {
     // public boolean stopped = false;
     // public double elevatorStage1Target;
     public double elevatorStage2Target;
-    public StallTimer stage1StallTimer;
-    public CombinedStallHandler stage1CombinedStallHandler;
+    public StallTimer stage2StallTimer;
+    public CombinedStallHandler stage2CombinedStallHandler;
 
     /**
     *
@@ -83,7 +83,7 @@ public class ElevatorS2 extends SubsystemBase {
         // CurrentLimitsConfigs elevatorLowerCurrent = elevatorLowerConfig.CurrentLimits;
         CurrentLimitsConfigs elevatorUpperCurrent = elevatorUpperConfig.CurrentLimits;
         // elevatorLowerCurrent.StatorCurrentLimit = 25;
-        elevatorUpperCurrent.StatorCurrentLimit = 25;
+        elevatorUpperCurrent.StatorCurrentLimit = Constants.ElevatorConstants.stage2StandardCurrentLimit;
         // SoftwareLimitSwitchConfigs elevatorLowerSoftSwitch = elevatorLowerConfig.SoftwareLimitSwitch;
         // elevatorLowerSoftSwitch.ForwardSoftLimitEnable = true;
         // elevatorLowerSoftSwitch.ForwardSoftLimitThreshold = 2.5;
@@ -142,8 +142,8 @@ public class ElevatorS2 extends SubsystemBase {
             // System.out.println("Could not configure device. Error: " + statusL.toString());
         // }
 
-        stage1StallTimer = new StallTimer(stage2motor);
-        stage1CombinedStallHandler = new CombinedStallHandler(stage2motor);
+        stage2StallTimer = new StallTimer(stage2motor);
+        stage2CombinedStallHandler = new CombinedStallHandler(stage2motor);
 
     }
 
@@ -157,8 +157,8 @@ public class ElevatorS2 extends SubsystemBase {
         SmartDashboard.putBoolean("Stage 2", Robot.getInstance().getTopStage2());
         SmartDashboard.putBoolean("S2 Stall", stage2motor.getFault_StatorCurrLimit().getValue());
         SmartDashboard.putBoolean("S2 StallSpeed", StallSpeed.checkStalled(stage2motor));
-        SmartDashboard.putBoolean("S2 StallTimer", stage1StallTimer.isStalled());
-        SmartDashboard.putBoolean("S2 CombinedStall", stage1CombinedStallHandler.isStalled());
+        SmartDashboard.putBoolean("S2 StallTimer", stage2StallTimer.isStalled());
+        SmartDashboard.putBoolean("S2 CombinedStall", stage2CombinedStallHandler.isStalled());
 
 //         if (getBottomSwitch() && stage1motor.getPosition().getValueAsDouble()!= Constants.ElevatorConstants.stage1LowerLimit) {
 //             stage1motor.setPosition(Constants.ElevatorConstants.stage1LowerLimit);
@@ -171,27 +171,12 @@ public class ElevatorS2 extends SubsystemBase {
         // SmartDashboard.putBoolean("bottomSwitch", getBottomSwitch());
     }
 
-    @Override
-    public void simulationPeriodic() {
-        // This method will be called once per scheduler run when in simulation
-
-    }
-
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-
-    // public boolean getBottomSwitch() {
-        // return elevatorBottomSwitch.get();
-    // }
 
     public boolean getTopSwitch() {
         return Robot.getInstance().getTopStage2();
     }
-
-    // public boolean isMotorOneAtPos() {
-    // 
-        // return Math.abs(stage1motor.getPosition().getValueAsDouble() - elevatorStage1Target) < .1;
-    // }
 
     public boolean isMotorTwoAtPos() {
         return Math.abs(stage2motor.getPosition().getValueAsDouble() - elevatorStage2Target) < .1;
@@ -213,11 +198,6 @@ public class ElevatorS2 extends SubsystemBase {
             // stage2motor.setControl(
                     // m_motionMagicReqU.withPosition(elevatorStage2Target).withSlot(0));
         // }
-    // }
-
-    // public void stopBothMotors() {
-        // stage1motor.set(0);
-        // stage2motor.set(0);
     // }
 
     public void stopMotor() {
@@ -245,6 +225,14 @@ public class ElevatorS2 extends SubsystemBase {
            stage2motor.set(0);
         } else {
             stage2motor.set(0.2);
+        }
+    }
+
+    public void setElevatorZeroingS2Downward() {
+        if (getTopSwitch()) {
+            stage2motor.set(0);
+        } else {
+            stage2motor.set(-0.15);
         }
     }
 

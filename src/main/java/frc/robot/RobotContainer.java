@@ -336,7 +336,7 @@ public class RobotContainer {
                 .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
                         .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        final JoystickButton btnZeroNew = new JoystickButton(accessory.getHID(), XboxController.Button.kStart.value);
+        final JoystickButton btnZeroNew = new JoystickButton(joystick.getHID(), XboxController.Button.kBack.value);
         btnZeroNew.onTrue(new ZeroAllNew(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
                 .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 

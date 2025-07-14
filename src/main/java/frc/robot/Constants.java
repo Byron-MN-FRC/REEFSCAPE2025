@@ -119,9 +119,9 @@ public class Constants {
             public static String getLevel(){
                 // if (DriverStation.isAutonomous()) level = "L4";
                 if (getCurrentRow() == 0) level = "L1";
-                else if (getCurrentRow() == 1) level = "L2";
-                else if (getCurrentRow() == 2) level = "L3";
-                else if (getCurrentRow() == 3) level = "L4";
+                else if (getCurrentRow() == 1) level = "L1";
+                else if (getCurrentRow() == 2) level = "L2";
+                else if (getCurrentRow() == 3) level = "L2";
                 return level;
             }
 

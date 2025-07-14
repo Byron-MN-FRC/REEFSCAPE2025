@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonStart"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonDisableVision"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GND-Part1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GND-Part2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GND-Part3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GND-Part4"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

@@ -17,27 +17,91 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GND-Part1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GND-Part1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonGrabAlgaeL2"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GND-Part2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GND-Part2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonPlaceAlgae"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "GND-Part3"
+            "name": "AutonAlgaeDrop"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "GND-Part4"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GND-Part3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonGrabAlgaeL2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "GND-Part4"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonPlaceAlgae"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonAlgaeDrop"
           }
         }
       ]

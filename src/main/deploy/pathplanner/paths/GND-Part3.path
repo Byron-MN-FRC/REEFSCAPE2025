@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4,
-        "y": 2.3
+        "x": 1.3,
+        "y": 2.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": -0.6098484848484853,
-        "y": 0.4370580808080804
+        "x": -0.7098484848484852,
+        "y": 0.6370580808080806
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "GND2-3"
     },
     {
       "anchor": {
-        "x": 4.8,
-        "y": 1.6
+        "x": 5.075,
+        "y": 2.0
       },
       "prevControl": {
-        "x": 3.987689393939394,
-        "y": -4.440892098500626e-16
+        "x": 5.22175,
+        "y": 0.13474999999999904
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "GND3-4"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -45,10 +45,10 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": "GND",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

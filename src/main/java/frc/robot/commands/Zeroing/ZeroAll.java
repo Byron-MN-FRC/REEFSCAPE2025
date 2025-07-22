@@ -10,21 +10,22 @@ import frc.robot.PoseSetter;
 import frc.robot.Robot;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Coral;
-import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Shoulder;
+import frc.robot.subsystems.ElevatorS1;
+import frc.robot.subsystems.ElevatorS2;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ZeroAll extends SequentialCommandGroup {
   /** Creates a new Store. */
-  public ZeroAll(Shoulder m_shoulder, Elevator m_elevator, Coral m_claw, Algae m_algae) {
+  public ZeroAll(Shoulder m_shoulder, ElevatorS1 m_elevatorS1, ElevatorS2 m_elevatorS2, Coral m_claw, Algae m_algae) {
     // Add Commands here:
     addCommands(
       new InstantCommand(() -> m_claw.coralZero()),
       new InstantCommand(() -> m_algae.algaeZero()),
-      new ZeroElevatorS1(m_elevator),
-      new HomeElevatorS1(m_elevator),
-      new ZeroElevatorS2(m_elevator),
-      new HomeElevatorS2(m_elevator),
+      new ZeroElevatorS1(m_elevatorS1),
+      new HomeElevatorS1(m_elevatorS1),
+      new ZeroElevatorS2(m_elevatorS2),
+      new HomeElevatorS2(m_elevatorS2),
       new ZeroShoulder(m_shoulder),
       new HomeShoulder(m_shoulder),
       new InstantCommand(() -> Robot.getInstance().currentArrangementOthers(PoseSetter.Zero))); 

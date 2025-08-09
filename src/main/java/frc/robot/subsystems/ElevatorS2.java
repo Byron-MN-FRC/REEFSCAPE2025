@@ -222,7 +222,7 @@ public class ElevatorS2 extends SubsystemBase {
         if (getTopSwitch()) {
            stage2motor.set(0);
         } else {
-            stage2motor.set(0.2);
+            stage2motor.set(0.4);
         }
     }
 

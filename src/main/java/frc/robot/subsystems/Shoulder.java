@@ -146,7 +146,7 @@ public class Shoulder extends SubsystemBase {
         if (isShoulderTripped()) {
             shoulderMotor.set(0);
         } else {
-            shoulderMotor.set(-0.2);
+            shoulderMotor.set(-0.5);
         }
 
     }

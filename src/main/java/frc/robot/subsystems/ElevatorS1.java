@@ -215,7 +215,7 @@ public class ElevatorS1 extends SubsystemBase {
         if (getBottomSwitch()) {
             stage1motor.set(0);
         } else {
-            stage1motor.set(-0.375);
+            stage1motor.set(-.75);
         }
     }
 

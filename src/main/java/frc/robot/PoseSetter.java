@@ -112,14 +112,14 @@ public class PoseSetter {
 
 			// processor
 			put(AlgaePlace + "L1", new double[]{
-				Constants.ElevatorConstants.stage1LowerLimit - 0.06,
+				Constants.ElevatorConstants.stage1LowerLimit - 0.4,
 				Constants.ElevatorConstants.stage2LowerLimit - 0.06,
 				187.5,
 			}); 
 
 			// processor
 			put(AlgaePlace + "L2", new double[]{
-				Constants.ElevatorConstants.stage1LowerLimit - 0.06,
+				Constants.ElevatorConstants.stage1LowerLimit - 0.4,
 				Constants.ElevatorConstants.stage2LowerLimit - 0.06,
 				187.5,
 			}); 

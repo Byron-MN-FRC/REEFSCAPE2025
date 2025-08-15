@@ -140,8 +140,6 @@ public class ElevatorS2 extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        // SmartDashboard.putNumber("Bottom Vol", stage1motor.getVelocity().getValueAsDouble());
-        // SmartDashboard.putNumber("Bottom Pos", stage1motor.getPosition().getValueAsDouble());
         // SmartDashboard.putNumber("Top Vol", stage2motor.getVelocity().getValueAsDouble());
         SmartDashboard.putNumber("Top Pos", stage2motor.getPosition().getValueAsDouble());
         SmartDashboard.putBoolean("Stage 2", Robot.getInstance().getTopStage2());
@@ -198,7 +196,7 @@ public class ElevatorS2 extends SubsystemBase {
         if (getTopSwitch()) {
            stage2motor.set(0);
         } else {
-            stage2motor.set(0.75);
+            stage2motor.set(1);
         }
     }
 
@@ -235,10 +233,6 @@ public class ElevatorS2 extends SubsystemBase {
     //     double safeUpper = Constants.ShoulderConstants.shoulderUpperLimit - quadrant;
     //     return (currPos >= safeLower && currPos <= safeUpper);
     // } 
-
-    // public void setStage1MotorPosition(double position){
-        // stage1motor.setPosition(position);
-    // }
 
     public void setStage2MotorPosition(double position){
         stage2motor.setPosition(position);

@@ -155,7 +155,7 @@ public class Constants {
 
     public static final class ShoulderConstants {
 
-        public static final double shoulderUpperLimit = 223.96;
+        public static final double shoulderUpperLimit = 205.0;
         public static final double shoulderLowerLimit = 0.06;
         public static final double shoulderSensorLimit = 0;
 

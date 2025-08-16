@@ -111,10 +111,7 @@ public class Shoulder extends SubsystemBase {
         // This method will be called once per scheduler run
         SmartDashboard.putBoolean("ShoulderTripped", Robot.getInstance().getShoulderTripped());
         SmartDashboard.putNumber("Shoulder Position", shoulderMotor.getPosition().getValueAsDouble());
-        SmartDashboard.putBoolean("Shoulder Stall", shoulderMotor.getFault_StatorCurrLimit().getValue());
-        // SmartDashboard.putBoolean("Shoulder StallSpeed", StallSpeed.checkStalled(shoulderMotor));
-        // SmartDashboard.putBoolean("Shoulder StallTimer", shoulderStallTimer.isStalled());
-        SmartDashboard.putBoolean("Shoulder Combined Stall", shoulderCombinedStallHandler.isStalled());
+
     }
 
     @Override

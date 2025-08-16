@@ -28,7 +28,6 @@ public class ZeroAllNew extends SequentialCommandGroup {
       new InstantCommand(() -> m_algae.algaeZero()),
       Commands.sequence(
         new ZeroElevatorS2Upward(m_elevatorS2),
-        new ZeroElevatorS2Downward(m_elevatorS2),
         new HomeElevatorS2(m_elevatorS2)),
       Commands.parallel(
         Commands.sequence(

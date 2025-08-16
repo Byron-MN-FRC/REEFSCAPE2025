@@ -40,7 +40,7 @@ public class PoseSetter {
 			put("L4", new double[] {
 					Constants.ElevatorConstants.stage1UpperLimit + 0.38,
 					Constants.ElevatorConstants.stage2UpperLimit + 0.29,
-					100,
+					105,
 			});
 
 			put(Feeder, new double[] {

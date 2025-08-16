@@ -170,34 +170,7 @@ public class RobotContainer {
         SmartDashboard.putData("CoralClawIntake", new CoralClawIntake(m_coral));
         SmartDashboard.putData("AlgaeClawDrop", new AlgaeClawDrop(m_algae));
         SmartDashboard.putData("AlgaeClawIntake", new AlgaeClawIntake(m_algae));
-        SmartDashboard.putData("DriveToPosition",
-                new DriveToPosition(drivetrain, Constants.VisionConstants.limelightName));
-        // SmartDashboard.putData("GrabCoral", new InstantCommand(() ->
-        // goalArrangementOthers(PoseSetter.Feeder))
-        // .andThen(new GrabCoral(m_shoulder, m_elevator, m_coral)));
-        // SmartDashboard.putData("MoveElevator", new InstantCommand(() ->
-        // goalArrangementPlacing())
-        // .andThen(new MoveElevator(m_elevator)));
-        // SmartDashboard.putData("MoveShoulder", new InstantCommand(() ->
-        // goalArrangementOthers(PoseSetter.Stored))
-        // .andThen(new MoveShoulder(m_shoulder)));
-        // SmartDashboard.putData("PlaceCoral", new InstantCommand(() ->
-        // goalArrangementPlacing())
-        // .andThen(new PlaceCoral(m_shoulder, m_elevator)));
-        // SmartDashboard.putData("Store", new InstantCommand(() ->
-        // goalArrangementOthers(PoseSetter.Stored))
-        // .andThen(new Store(m_shoulder, m_elevator, m_coral)));
-        SmartDashboard.putData("ZeroAll", new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae));
-        SmartDashboard.putData("Zero S1", new ZeroElevatorS1(m_elevatorS1));
-        SmartDashboard.putData("Zero S2", new ZeroElevatorS2(m_elevatorS2));
-        SmartDashboard.putData("ZeroShoulder", new ZeroShoulder(m_shoulder));
-        SmartDashboard.putData("PreZero", new InstantCommand(() -> goalArrangementOthers(PoseSetter.PreZero))
-                .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)));
-        SmartDashboard.putData("Home S1", new HomeElevatorS1(m_elevatorS1));
-        SmartDashboard.putData("Home S2", new HomeElevatorS2(m_elevatorS2));
-        SmartDashboard.putData("Home Shoulder", new HomeShoulder(m_shoulder));
-        // SmartDashboard.putData("Low Algae Grab", new AutonGrabAlgaeLow(m_shoulder,
-        // m_elevator, m_algae));
+
         SmartDashboard.putData("StartPreMatch", new StartPreMatch(m_elevatorS1, m_elevatorS2));
         // SmartDashboard.putBoolean("is safe to move shoulder",
         // m_shoulder.isSafeToMoveShoulder());

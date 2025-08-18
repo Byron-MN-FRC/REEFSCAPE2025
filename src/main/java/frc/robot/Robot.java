@@ -10,6 +10,8 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.net.WebServer;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,6 +38,7 @@ public class Robot extends TimedRobot {
         CameraServer.addCamera(frontCam);
         HttpCamera backCam = new HttpCamera("BackCam", "http://10.48.59.12:5800");
         CameraServer.addCamera(backCam);
+        WebServer.start(5800, Filesystem.getDeployDirectory().getPath());
   }
 
   public static RobotContainer getInstance(){

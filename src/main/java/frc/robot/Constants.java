@@ -136,7 +136,7 @@ public class Constants {
     }
 
     public static final class SwerveConstants {
-        public static final double percentSlow = 0.35;
+        public static final double percentSlow = 0.25;
         public static final double smoothingFactor = 0.5;
         // Closer to 1: Faster changes (less smoothing), Closer to 0: Slower changes (more smoothing).
     } 

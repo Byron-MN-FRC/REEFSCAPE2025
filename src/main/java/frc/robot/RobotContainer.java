@@ -59,15 +59,7 @@ import frc.robot.commands.AutonomousCommands.AutonPlaceCoralParallel;
 import frc.robot.commands.AutonomousCommands.AutonResetRotation;
 import frc.robot.commands.AutonomousCommands.AutonStart;
 import frc.robot.commands.AutonomousCommands.AutonStore;
-import frc.robot.commands.Zeroing.HomeElevatorS1;
-import frc.robot.commands.Zeroing.HomeElevatorS2;
-import frc.robot.commands.Zeroing.HomeShoulder;
-import frc.robot.commands.Zeroing.PreZero;
 import frc.robot.commands.Zeroing.ZeroAll;
-import frc.robot.commands.Zeroing.ZeroAllNew;
-import frc.robot.commands.Zeroing.ZeroElevatorS1;
-import frc.robot.commands.Zeroing.ZeroElevatorS2;
-import frc.robot.commands.Zeroing.ZeroShoulder;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlignmentSubsystem;
@@ -298,19 +290,19 @@ public class RobotContainer {
         // .andThen(new Climb(m_shoulder,
         // m_elevator).withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        final JoystickButton btnZeroAll = new JoystickButton(joystick.getHID(), XboxController.Button.kBack.value);
-        btnZeroAll.onFalse(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Zero))
-                .andThen(new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
-                        .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
+        // final JoystickButton btnZeroAllOld = new JoystickButton(joystick.getHID(), XboxController.Button.kBack.value);
+        // btnZeroAllOld.onFalse(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Zero))
+        //         .andThen(new ZeroAllOld(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
+        //                 .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        final JoystickButton btnPreZeroAll = new JoystickButton(joystick.getHID(), XboxController.Button.kBack.value);
-        btnPreZeroAll.onTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.PreZero))
-                .andThen(new CoralClawDrop(m_coral))
-                .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
-                        .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
+        // final JoystickButton btnPreZeroAllOld = new JoystickButton(joystick.getHID(), XboxController.Button.kBack.value);
+        // btnPreZeroAllOld.onTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.PreZero))
+        //         .andThen(new CoralClawDrop(m_coral))
+        //         .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
+        //                 .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
         final JoystickButton btnZeroNew = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
-        btnZeroNew.onTrue(new ZeroAllNew(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
+        btnZeroNew.onTrue(new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
                 .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         final JoystickButton btnCoralIntake = new JoystickButton(accessory.getHID(),

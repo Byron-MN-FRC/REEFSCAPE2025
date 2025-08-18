@@ -148,13 +148,13 @@ public class Shoulder extends SubsystemBase {
 
     }
 
-    public void setShoulderZeroingSecond() {
-        if (isShoulderTripped()) {
-            shoulderMotor.set(0);
-        } else {
-            shoulderMotor.set(0.15);
-        }
-    }
+    // public void setShoulderZeroingSecond() {
+    //     if (isShoulderTripped()) {
+    //         shoulderMotor.set(0);
+    //     } else {
+    //         shoulderMotor.set(0.15);
+    //     }
+    // }
 
     public void setShoulderHoming(){
         if (!isShoulderTripped()) {

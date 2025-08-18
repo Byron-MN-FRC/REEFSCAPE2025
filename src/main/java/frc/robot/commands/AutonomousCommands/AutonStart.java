@@ -5,7 +5,7 @@
 package frc.robot.commands.AutonomousCommands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Zeroing.ZeroAllNew;
+import frc.robot.commands.Zeroing.ZeroAll;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.ElevatorS1;
@@ -25,7 +25,7 @@ public class AutonStart extends SequentialCommandGroup {
       //   new MoveElevatorS1(m_elevatorS1),
       //   new MoveElevatorS2(m_elevatorS2)
       // )
-      new ZeroAllNew(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
+      new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
     );
   }
 }

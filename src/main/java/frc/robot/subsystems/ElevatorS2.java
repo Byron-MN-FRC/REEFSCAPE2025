@@ -195,13 +195,13 @@ public class ElevatorS2 extends SubsystemBase {
         }
     }
 
-    public void setElevatorZeroingS2Downward() {
-        if (getTopSwitch()) {
-            stage2motor.set(0);
-        } else {
-            stage2motor.set(-0.15);
-        }
-    }
+    // public void setElevatorZeroingS2Downward() {
+    //     if (getTopSwitch()) {
+    //         stage2motor.set(0);
+    //     } else {
+    //         stage2motor.set(-0.15);
+    //     }
+    // }
 
     public void setElevatorHomingS2(){
         if (!getTopSwitch()) {

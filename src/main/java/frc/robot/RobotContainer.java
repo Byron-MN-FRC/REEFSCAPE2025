@@ -290,19 +290,8 @@ public class RobotContainer {
         // .andThen(new Climb(m_shoulder,
         // m_elevator).withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        // final JoystickButton btnZeroAllOld = new JoystickButton(joystick.getHID(), XboxController.Button.kBack.value);
-        // btnZeroAllOld.onFalse(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Zero))
-        //         .andThen(new ZeroAllOld(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
-        //                 .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
-
-        // final JoystickButton btnPreZeroAllOld = new JoystickButton(joystick.getHID(), XboxController.Button.kBack.value);
-        // btnPreZeroAllOld.onTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.PreZero))
-        //         .andThen(new CoralClawDrop(m_coral))
-        //         .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
-        //                 .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
-
-        final JoystickButton btnZeroNew = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
-        btnZeroNew.onTrue(new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
+        final JoystickButton btnZero = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
+        btnZero.onTrue(new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
                 .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         final JoystickButton btnCoralIntake = new JoystickButton(accessory.getHID(),

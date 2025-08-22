@@ -238,19 +238,5 @@ public class ElevatorS1 extends SubsystemBase {
     public void setStage1MotorPosition(double position){
         stage1motor.setPosition(position);
     }
-
-    public void setCurrentLimit(double amps) {
-        CurrentLimitsConfigs newAmps = new CurrentLimitsConfigs().withStatorCurrentLimit(amps);
-
-        StatusCode status = StatusCode.StatusCodeNotInitialized;
-        for (int i = 0; i < 5; ++i) {
-            status = stage1motor.getConfigurator().apply(newAmps);
-            if (status.isOK())
-                break;
-        }
-        if (!status.isOK()) {
-            System.out.println("Could not configure device. Error: " + status.toString());
-        }
-    }
     
 }

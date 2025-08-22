@@ -183,18 +183,4 @@ public class Shoulder extends SubsystemBase {
     //     return (currPos >= safeLower);
     // } 
 
-    public void setCurrentLimit(double amps) {
-        CurrentLimitsConfigs newAmps = new CurrentLimitsConfigs().withStatorCurrentLimit(amps);
-
-        StatusCode status = StatusCode.StatusCodeNotInitialized;
-        for (int i = 0; i < 5; ++i) {
-            status = shoulderMotor.getConfigurator().apply(newAmps);
-            if (status.isOK())
-                break;
-        }
-        if (!status.isOK()) {
-            System.out.println("Could not configure device. Error: " + status.toString());
-        }
-    }
-
 }

@@ -142,22 +142,20 @@ public class Constants {
 
     public static final class ElevatorConstants {
 
+        // Stage 1
+        public static final double stage1UpperLimit = 5.17;
+        public static final double stage1LowerLimit = 0.06;
+        public static final double stage1SensorLimit = 0;
+        
+        public static final double stage1CurrentLimit = 25;
+
         // Stage 2
         public static final double stage2UpperLimit = 3.02;
         public static final double stage2LowerLimit = 0;
         public static final double stage2SensorLimit = 3.08;
 
-        public static final double stage2StandardCurrentLimit = 25;
-        public static final double stage2CalibrationCurrentLimit = 25;
-
-        // Stage 1
-        public static final double stage1UpperLimit = 5.17;
-        public static final double stage1LowerLimit = 0.06;
-        public static final double stage1SensorLimit = 0;
-
-        public static final double stage1StandardCurrentLimit = 25;
-        public static final double stage1CalibrationCurrentLimit = 25;
-
+        public static final double stage2CurrentLimit = 25;
+        
     }
 
     public static final class ShoulderConstants {
@@ -166,8 +164,7 @@ public class Constants {
         public static final double shoulderLowerLimit = 0.06;
         public static final double shoulderSensorLimit = 0;
 
-        public static final double shoulderStandardCurrentLimit = 25;
-        public static final double shoulderCalibrationCurrentLimit = 25;
+        public static final double shoulderCurrentLimit = 25;
 
     }
 

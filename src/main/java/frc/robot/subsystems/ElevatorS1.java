@@ -78,7 +78,7 @@ public class ElevatorS1 extends SubsystemBase {
         // elevatorUpperFeedback.SensorToMechanismRatio = 45;
         elevatorLowerFeedback.SensorToMechanismRatio = 20;
         CurrentLimitsConfigs elevatorLowerCurrent = elevatorLowerConfig.CurrentLimits;
-        elevatorLowerCurrent.StatorCurrentLimit = Constants.ElevatorConstants.stage1StandardCurrentLimit;
+        elevatorLowerCurrent.StatorCurrentLimit = Constants.ElevatorConstants.stage1CurrentLimit;
         // SoftwareLimitSwitchConfigs elevatorLowerSoftSwitch = elevatorLowerConfig.SoftwareLimitSwitch;
         // elevatorLowerSoftSwitch.ForwardSoftLimitEnable = true;
         // elevatorLowerSoftSwitch.ForwardSoftLimitThreshold = 2.5;

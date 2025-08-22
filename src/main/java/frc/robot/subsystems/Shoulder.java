@@ -68,7 +68,7 @@ public class Shoulder extends SubsystemBase {
 
         // Configs
         CurrentLimitsConfigs shoulderCurrent = shoulderConf.CurrentLimits;
-        shoulderCurrent.StatorCurrentLimit = Constants.ShoulderConstants.shoulderStandardCurrentLimit;
+        shoulderCurrent.StatorCurrentLimit = Constants.ShoulderConstants.shoulderCurrentLimit;
         MotorOutputConfigs shoulderOutput = shoulderConf.MotorOutput;
         shoulderOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         shoulderOutput.NeutralMode = NeutralModeValue.Brake;

@@ -81,7 +81,7 @@ public class ElevatorS2 extends SubsystemBase {
         // CurrentLimitsConfigs elevatorLowerCurrent = elevatorLowerConfig.CurrentLimits;
         CurrentLimitsConfigs elevatorUpperCurrent = elevatorUpperConfig.CurrentLimits;
         // elevatorLowerCurrent.StatorCurrentLimit = 25;
-        elevatorUpperCurrent.StatorCurrentLimit = Constants.ElevatorConstants.stage2StandardCurrentLimit;
+        elevatorUpperCurrent.StatorCurrentLimit = Constants.ElevatorConstants.stage2CurrentLimit;
         // SoftwareLimitSwitchConfigs elevatorLowerSoftSwitch = elevatorLowerConfig.SoftwareLimitSwitch;
         // elevatorLowerSoftSwitch.ForwardSoftLimitEnable = true;
         // elevatorLowerSoftSwitch.ForwardSoftLimitThreshold = 2.5;

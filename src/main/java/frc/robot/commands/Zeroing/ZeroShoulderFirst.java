@@ -19,7 +19,6 @@ public class ZeroShoulderFirst extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_shoulder.setCurrentLimit(Constants.ShoulderConstants.shoulderCalibrationCurrentLimit);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -32,7 +31,6 @@ public class ZeroShoulderFirst extends Command {
     @Override
     public void end(boolean interrupted) {
         m_shoulder.stopShoulder();
-        m_shoulder.setCurrentLimit(Constants.ShoulderConstants.shoulderStandardCurrentLimit);
     }
 
     // Returns true when the command should end.

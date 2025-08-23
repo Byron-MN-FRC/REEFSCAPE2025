@@ -12,7 +12,6 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -143,14 +142,20 @@ public class Constants {
 
     public static final class ElevatorConstants {
 
+        // Stage 1
+        public static final double stage1UpperLimit = 5.17;
+        public static final double stage1LowerLimit = 0.06;
+        public static final double stage1SensorLimit = 0;
+        
+        public static final double stage1CurrentLimit = 25;
+
+        // Stage 2
         public static final double stage2UpperLimit = 3.02;
         public static final double stage2LowerLimit = 0;
         public static final double stage2SensorLimit = 3.08;
 
-        public static final double stage1UpperLimit = 5.17;
-        public static final double stage1LowerLimit = 0.06;
-        public static final double stage1SensorLimit = 0;
-
+        public static final double stage2CurrentLimit = 25;
+        
     }
 
     public static final class ShoulderConstants {
@@ -158,6 +163,8 @@ public class Constants {
         public static final double shoulderUpperLimit = 205.0;
         public static final double shoulderLowerLimit = 0.06;
         public static final double shoulderSensorLimit = 0;
+
+        public static final double shoulderCurrentLimit = 25;
 
     }
 

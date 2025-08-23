@@ -28,9 +28,9 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.CombinedStallHandler;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
@@ -61,6 +61,8 @@ public class ElevatorS2 extends SubsystemBase {
     // public boolean stopped = false;
     // public double elevatorStage1Target;
     public double elevatorStage2Target;
+    // public StallTimer stage2StallTimer;
+    public CombinedStallHandler stage2CombinedStallHandler;
 
     /**
     *
@@ -79,7 +81,7 @@ public class ElevatorS2 extends SubsystemBase {
         // CurrentLimitsConfigs elevatorLowerCurrent = elevatorLowerConfig.CurrentLimits;
         CurrentLimitsConfigs elevatorUpperCurrent = elevatorUpperConfig.CurrentLimits;
         // elevatorLowerCurrent.StatorCurrentLimit = 25;
-        elevatorUpperCurrent.StatorCurrentLimit = 25;
+        elevatorUpperCurrent.StatorCurrentLimit = Constants.ElevatorConstants.stage2CurrentLimit;
         // SoftwareLimitSwitchConfigs elevatorLowerSoftSwitch = elevatorLowerConfig.SoftwareLimitSwitch;
         // elevatorLowerSoftSwitch.ForwardSoftLimitEnable = true;
         // elevatorLowerSoftSwitch.ForwardSoftLimitThreshold = 2.5;
@@ -110,14 +112,6 @@ public class ElevatorS2 extends SubsystemBase {
         upperSlot0.kS = 0.051841; // Add 0.25 V output to overcome static friction
         upperSlot0.kA = 0.095406; // An acceleration of 1 rps/s requires 0.01 V output
 
-        // Slot0Configs lowerSlot0 = elevatorLowerConfig.Slot0;
-        // lowerSlot0.kP = 60; // A position error of 0.2 rotations results in 12 V output
-        // lowerSlot0.kI = 0; // No output for integrated error
-        // lowerSlot0.kD = 0.5; // A velocity error of 1 rps results in 0.5 V output
-        // lowerSlot0.kV = 5.226; // A velocity target of 1 rps results in 0.12 V output
-        // lowerSlot0.kS = 0.15296; // Add 0.25 V output to overcome static friction
-        // lowerSlot0.kA = 0.055325; // An acceleration of 1 rps/s requires 0.01 V output
-
         StatusCode statusU = StatusCode.StatusCodeNotInitialized;
         for (int i = 0; i < 5; ++i) {
             statusU = stage2motor.getConfigurator().apply(elevatorUpperConfig);
@@ -137,16 +131,18 @@ public class ElevatorS2 extends SubsystemBase {
         // if (!statusL.isOK()) {
             // System.out.println("Could not configure device. Error: " + statusL.toString());
         // }
+
+        // stage2StallTimer = new StallTimer(stage2motor);
+        stage2CombinedStallHandler = new CombinedStallHandler(stage2motor);
+
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        // SmartDashboard.putNumber("Bottom Vol", stage1motor.getVelocity().getValueAsDouble());
-        // SmartDashboard.putNumber("Bottom Pos", stage1motor.getPosition().getValueAsDouble());
-        // SmartDashboard.putNumber("Top Vol", stage2motor.getVelocity().getValueAsDouble());
         SmartDashboard.putNumber("Top Pos", stage2motor.getPosition().getValueAsDouble());
         SmartDashboard.putBoolean("Stage 2", Robot.getInstance().getTopStage2());
+
 
 //         if (getBottomSwitch() && stage1motor.getPosition().getValueAsDouble()!= Constants.ElevatorConstants.stage1LowerLimit) {
 //             stage1motor.setPosition(Constants.ElevatorConstants.stage1LowerLimit);
@@ -156,30 +152,14 @@ public class ElevatorS2 extends SubsystemBase {
 //             stage2motor.setPosition(Constants.ElevatorConstants.stage2UpperLimit);
 //         }
 
-        // SmartDashboard.putBoolean("bottomSwitch", getBottomSwitch());
-    }
-
-    @Override
-    public void simulationPeriodic() {
-        // This method will be called once per scheduler run when in simulation
-
     }
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    // public boolean getBottomSwitch() {
-        // return elevatorBottomSwitch.get();
-    // }
-
     public boolean getTopSwitch() {
         return Robot.getInstance().getTopStage2();
     }
-
-    // public boolean isMotorOneAtPos() {
-    // 
-        // return Math.abs(stage1motor.getPosition().getValueAsDouble() - elevatorStage1Target) < .1;
-    // }
 
     public boolean isMotorTwoAtPos() {
         return Math.abs(stage2motor.getPosition().getValueAsDouble() - elevatorStage2Target) < .1;
@@ -203,38 +183,25 @@ public class ElevatorS2 extends SubsystemBase {
         // }
     // }
 
-    // public void stopBothMotors() {
-        // stage1motor.set(0);
-        // stage2motor.set(0);
-    // }
-
     public void stopMotor() {
         stage2motor.set(0);
     }
-
-    // public void setElevatorZeroingS1(){
-        // if (getBottomSwitch()) {
-            // stage1motor.set(0);
-        // } else {
-            // stage1motor.set(-0.25);
-        // }
-    // }
-
-    // public void setElevatorHomingS1(){
-        // if (!getBottomSwitch()) {
-            // stage1motor.set(0);
-        // } else {
-            // stage1motor.set(0.1);
-        // }
-    // }
 
     public void setElevatorZeroingS2(){
         if (getTopSwitch()) {
            stage2motor.set(0);
         } else {
-            stage2motor.set(0.2);
+            stage2motor.set(1);
         }
     }
+
+    // public void setElevatorZeroingS2Downward() {
+    //     if (getTopSwitch()) {
+    //         stage2motor.set(0);
+    //     } else {
+    //         stage2motor.set(-0.15);
+    //     }
+    // }
 
     public void setElevatorHomingS2(){
         if (!getTopSwitch()) {
@@ -261,10 +228,6 @@ public class ElevatorS2 extends SubsystemBase {
     //     double safeUpper = Constants.ShoulderConstants.shoulderUpperLimit - quadrant;
     //     return (currPos >= safeLower && currPos <= safeUpper);
     // } 
-
-    // public void setStage1MotorPosition(double position){
-        // stage1motor.setPosition(position);
-    // }
 
     public void setStage2MotorPosition(double position){
         stage2motor.setPosition(position);

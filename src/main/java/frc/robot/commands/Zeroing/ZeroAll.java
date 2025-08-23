@@ -4,10 +4,12 @@
 
 package frc.robot.commands.Zeroing;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.PoseSetter;
 import frc.robot.Robot;
+import frc.robot.commands.MoveElevatorS1;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Shoulder;
@@ -20,15 +22,25 @@ public class ZeroAll extends SequentialCommandGroup {
   public ZeroAll(Shoulder m_shoulder, ElevatorS1 m_elevatorS1, ElevatorS2 m_elevatorS2, Coral m_claw, Algae m_algae) {
     // Add Commands here:
     addCommands(
+
+      //TODO add timeouts
       new InstantCommand(() -> m_claw.coralZero()),
       new InstantCommand(() -> m_algae.algaeZero()),
-      new ZeroElevatorS1(m_elevatorS1),
-      new HomeElevatorS1(m_elevatorS1),
-      new ZeroElevatorS2(m_elevatorS2),
-      new HomeElevatorS2(m_elevatorS2),
-      new ZeroShoulder(m_shoulder),
-      new HomeShoulder(m_shoulder),
-      new InstantCommand(() -> Robot.getInstance().currentArrangementOthers(PoseSetter.Zero))); 
+      Commands.sequence(
+        new ZeroElevatorS2Upward(m_elevatorS2),
+        new HomeElevatorS2(m_elevatorS2)),
+      Commands.parallel(
+        Commands.sequence(
+          new ZeroShoulderFirst(m_shoulder),
+          new HomeShoulder(m_shoulder)),
+        Commands.sequence(
+          new ZeroElevatorS1Downward(m_elevatorS1),
+          new ZeroElevatorS1Upward(m_elevatorS1),
+          new HomeElevatorS1(m_elevatorS1))),
+          
+      new InstantCommand(() -> Robot.getInstance().goalArrangementOthers(PoseSetter.Zero)),
+      new InstantCommand(() -> Robot.getInstance().currentArrangementOthers(PoseSetter.Zero))
+      );
 
   }
 

@@ -59,14 +59,7 @@ import frc.robot.commands.AutonomousCommands.AutonPlaceCoralParallel;
 import frc.robot.commands.AutonomousCommands.AutonResetRotation;
 import frc.robot.commands.AutonomousCommands.AutonStart;
 import frc.robot.commands.AutonomousCommands.AutonStore;
-import frc.robot.commands.Zeroing.HomeElevatorS1;
-import frc.robot.commands.Zeroing.HomeElevatorS2;
-import frc.robot.commands.Zeroing.HomeShoulder;
-import frc.robot.commands.Zeroing.PreZero;
 import frc.robot.commands.Zeroing.ZeroAll;
-import frc.robot.commands.Zeroing.ZeroElevatorS1;
-import frc.robot.commands.Zeroing.ZeroElevatorS2;
-import frc.robot.commands.Zeroing.ZeroShoulder;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlignmentSubsystem;
@@ -129,7 +122,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutonPlaceCoral", new AutonPlaceCoral(m_shoulder, m_elevatorS1, m_elevatorS2));
         NamedCommands.registerCommand("AutonStore", new AutonStore(m_elevatorS1, m_elevatorS2, m_shoulder));
         NamedCommands.registerCommand("AutonPlaceCoralParallel", new AutonPlaceCoralParallel(m_shoulder, m_elevatorS1, m_elevatorS2));
-        NamedCommands.registerCommand("AutonStart", new AutonStart(m_elevatorS1, m_elevatorS2));
+        NamedCommands.registerCommand("AutonStart", new AutonStart(m_elevatorS1, m_elevatorS2, m_shoulder, m_coral, m_algae));
         NamedCommands.registerCommand("AutonClawDrop", new AutonCoralDrop(m_coral));
         NamedCommands.registerCommand("AutonAlgaeDrop", new AutonAlgaeDrop(m_algae));
         NamedCommands.registerCommand("AutonGrabCoral", new AutonGrabCoral(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral));
@@ -169,34 +162,7 @@ public class RobotContainer {
         SmartDashboard.putData("CoralClawIntake", new CoralClawIntake(m_coral));
         SmartDashboard.putData("AlgaeClawDrop", new AlgaeClawDrop(m_algae));
         SmartDashboard.putData("AlgaeClawIntake", new AlgaeClawIntake(m_algae));
-        SmartDashboard.putData("DriveToPosition",
-                new DriveToPosition(drivetrain, Constants.VisionConstants.limelightName));
-        // SmartDashboard.putData("GrabCoral", new InstantCommand(() ->
-        // goalArrangementOthers(PoseSetter.Feeder))
-        // .andThen(new GrabCoral(m_shoulder, m_elevator, m_coral)));
-        // SmartDashboard.putData("MoveElevator", new InstantCommand(() ->
-        // goalArrangementPlacing())
-        // .andThen(new MoveElevator(m_elevator)));
-        // SmartDashboard.putData("MoveShoulder", new InstantCommand(() ->
-        // goalArrangementOthers(PoseSetter.Stored))
-        // .andThen(new MoveShoulder(m_shoulder)));
-        // SmartDashboard.putData("PlaceCoral", new InstantCommand(() ->
-        // goalArrangementPlacing())
-        // .andThen(new PlaceCoral(m_shoulder, m_elevator)));
-        // SmartDashboard.putData("Store", new InstantCommand(() ->
-        // goalArrangementOthers(PoseSetter.Stored))
-        // .andThen(new Store(m_shoulder, m_elevator, m_coral)));
-        SmartDashboard.putData("ZeroAll", new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae));
-        SmartDashboard.putData("Zero S1", new ZeroElevatorS1(m_elevatorS1));
-        SmartDashboard.putData("Zero S2", new ZeroElevatorS2(m_elevatorS2));
-        SmartDashboard.putData("ZeroShoulder", new ZeroShoulder(m_shoulder));
-        SmartDashboard.putData("PreZero", new InstantCommand(() -> goalArrangementOthers(PoseSetter.PreZero))
-                .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)));
-        SmartDashboard.putData("Home S1", new HomeElevatorS1(m_elevatorS1));
-        SmartDashboard.putData("Home S2", new HomeElevatorS2(m_elevatorS2));
-        SmartDashboard.putData("Home Shoulder", new HomeShoulder(m_shoulder));
-        // SmartDashboard.putData("Low Algae Grab", new AutonGrabAlgaeLow(m_shoulder,
-        // m_elevator, m_algae));
+
         SmartDashboard.putData("StartPreMatch", new StartPreMatch(m_elevatorS1, m_elevatorS2));
         // SmartDashboard.putBoolean("is safe to move shoulder",
         // m_shoulder.isSafeToMoveShoulder());
@@ -324,16 +290,9 @@ public class RobotContainer {
         // .andThen(new Climb(m_shoulder,
         // m_elevator).withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
 
-        final JoystickButton btnZeroAll = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
-        btnZeroAll.onFalse(new InstantCommand(() -> goalArrangementOthers(PoseSetter.Zero))
-                .andThen(new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
-                        .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
-
-        final JoystickButton btnPreZeroAll = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
-        btnPreZeroAll.onTrue(new InstantCommand(() -> goalArrangementOthers(PoseSetter.PreZero))
-                .andThen(new CoralClawDrop(m_coral))
-                .andThen(new PreZero(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
-                        .withInterruptBehavior(InterruptionBehavior.kCancelSelf)));
+        final JoystickButton btnZero = new JoystickButton(accessory.getHID(), XboxController.Button.kBack.value);
+        btnZero.onTrue(new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
+                .withInterruptBehavior(InterruptionBehavior.kCancelSelf));
 
         final JoystickButton btnCoralIntake = new JoystickButton(accessory.getHID(),
                 XboxController.Button.kRightBumper.value);

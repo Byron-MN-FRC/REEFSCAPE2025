@@ -4,6 +4,7 @@
 
 package frc.robot.commands.Zeroing;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -39,7 +40,11 @@ public class ZeroAll extends SequentialCommandGroup {
           new HomeElevatorS1(m_elevatorS1))),
           
       new InstantCommand(() -> Robot.getInstance().goalArrangementOthers(PoseSetter.Zero)),
-      new InstantCommand(() -> Robot.getInstance().currentArrangementOthers(PoseSetter.Zero))
+      new InstantCommand(() -> Robot.getInstance().currentArrangementOthers(PoseSetter.Zero)),
+      new InstantCommand(() -> System.out.println(DriverStation.getMatchTime())),
+      new InstantCommand(() -> System.out.println(DriverStation.getMatchTime())),
+      new InstantCommand(() -> System.out.println(DriverStation.getMatchTime()))
+
       );
 
   }

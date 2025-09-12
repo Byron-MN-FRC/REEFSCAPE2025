@@ -3,20 +3,6 @@
   "grid_size": 128,
   "tabs": [
     {
-      "name": "Teleoperated",
-      "grid_layout": {
-        "layouts": [],
-        "containers": []
-      }
-    },
-    {
-      "name": "Autonomous",
-      "grid_layout": {
-        "layouts": [],
-        "containers": []
-      }
-    },
-    {
       "name": "DriverDashboard",
       "grid_layout": {
         "layouts": [
@@ -304,8 +290,7 @@
             "type": "Camera Stream",
             "properties": {
               "topic": "/CameraPublisher/limelight-front",
-              "period": 0.06,
-              "rotation_turns": 0
+              "period": 0.06
             }
           },
           {
@@ -317,8 +302,7 @@
             "type": "Camera Stream",
             "properties": {
               "topic": "/CameraPublisher/limelight-back",
-              "period": 0.06,
-              "rotation_turns": 0
+              "period": 0.06
             }
           }
         ]

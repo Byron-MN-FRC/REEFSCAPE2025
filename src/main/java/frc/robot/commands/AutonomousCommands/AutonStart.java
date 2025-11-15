@@ -20,11 +20,6 @@ public class AutonStart extends SequentialCommandGroup {
   public AutonStart(ElevatorS1 m_elevatorS1, ElevatorS2 m_elevatorS2, Shoulder m_shoulder, Coral m_coral, Algae m_algae) {
     // Add your commands in the addCommands() call, e.g.
     addCommands(
-      // new InstantCommand(() -> Robot.getInstance().goalArrangementOthers(PoseSetter.Zero)),
-      // Commands.parallel(
-      //   new MoveElevatorS1(m_elevatorS1),
-      //   new MoveElevatorS2(m_elevatorS2)
-      // )
       new ZeroAll(m_shoulder, m_elevatorS1, m_elevatorS2, m_coral, m_algae)
     );
   }

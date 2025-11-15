@@ -36,12 +36,7 @@ public class Coral extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Coral", Robot.getInstance().getCoralDetect());
-    // SmartDashboard.putBoolean("Algae", getAlgaeDetect());
   }
-
-  // public Boolean getCoralDetect() {
-  //   return clawCandi.getS1Closed().getValue();
-  // }
 
   public void coralRotateInwards() {
     coralClawMotor.set(.5);

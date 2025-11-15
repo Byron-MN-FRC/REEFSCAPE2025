@@ -46,7 +46,6 @@ public class SocialDistancing extends Command {
         addRequirements(drivetrain, alignmentSubsystem);
     }
 
-    
     @Override
     public void initialize() {
         forwardController.reset(m_distSensor.getDistance());
@@ -59,7 +58,6 @@ public class SocialDistancing extends Command {
         forwardController.setGoal(0.304);
 
         double forwardSpeed = forwardController.calculate(m_distSensor.getDistance());
-
 
         // SmartDashboard.putNumber("forward speed", forwardSpeed);
         // SmartDashboard.putNumber("distance from goal", m_distSensor.getDistance());

@@ -61,7 +61,7 @@ public class Robot extends TimedRobot {
     Robot.getInstance().percentSlow += (targetSlow - Robot.getInstance().percentSlow) * Constants.SwerveConstants.smoothingFactor;
     }
 
-
+Robot.getInstance().zoneMap.test();
     
     /*
      * This example of adding Limelight is very simple and may not be sufficient for

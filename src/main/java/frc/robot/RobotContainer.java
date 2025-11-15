@@ -17,6 +17,8 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import edu.wpi.first.math.geometry.Rectangle2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -33,6 +35,7 @@ import frc.robot.commands.CoralClawDrop;
 import frc.robot.commands.CoralClawIntake;
 import frc.robot.commands.DriveToFeeder;
 import frc.robot.commands.DriveToPosition;
+import frc.robot.commands.DriveWithForcefield;
 import frc.robot.commands.ElevatorDecrease;
 import frc.robot.commands.ElevatorIncrease;
 import frc.robot.commands.GrabAlgae;
@@ -80,7 +83,8 @@ public class RobotContainer {
     public final Vision m_vision = new Vision();
     public final AlignmentSubsystem m_alignmentSubsystem = new AlignmentSubsystem();
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
-
+    public final ZoneMap zoneMap = new ZoneMap();
+        
     private CANdi shoulderAndTopCandi;
     private CANdi clawCandi;
 
@@ -198,15 +202,16 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
                 // Drivetrain will execute this command periodically
-
-                drivetrain.applyRequest(() -> drive
-                        .withVelocityX(-joystick.getLeftY() * MaxSpeed * percentSlow)
-                        // Drive forward with negative Y (forward)
-                        .withVelocityY(-joystick.getLeftX() * MaxSpeed * percentSlow)
-                        // Drive left with negative X (left)
-                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate * percentSlow)
-                // Drive counterclockwise with negative X (left)
-                ));
+                new DriveWithForcefield(drivetrain, joystick, percentSlow)
+                // drivetrain.applyRequest(() -> drive
+                //         .withVelocityX(-joystick.getLeftY() * MaxSpeed * percentSlow)
+                //         // Drive forward with negative Y (forward)
+                //         .withVelocityY(-joystick.getLeftX() * MaxSpeed * percentSlow)
+                //         // Drive left with negative X (left)
+                //         .withRotationalRate(-joystick.getRightX() * MaxAngularRate * percentSlow)
+                // // Drive counterclockwise with negative X (left)
+                // )
+                );
 
         // Characterization buttons
         // Note that each routine should be run exactly once in a single log.

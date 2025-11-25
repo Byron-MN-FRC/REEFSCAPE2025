@@ -49,6 +49,4 @@ public class Algae extends SubsystemBase {
     algaeClawMotor.set(0);
   }
 
- 
-
 }

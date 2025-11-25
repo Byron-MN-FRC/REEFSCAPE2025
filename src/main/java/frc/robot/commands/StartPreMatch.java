@@ -19,7 +19,6 @@ public class StartPreMatch extends SequentialCommandGroup {
   /** Creates a new StartPreMatch. */
   public StartPreMatch(ElevatorS1 m_elevatorS1, ElevatorS2 m_elevatorS2) {
     // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new InstantCommand(() -> Robot.getInstance().goalArrangementOthers(PoseSetter.StartPreMatch)),
         Commands.parallel(

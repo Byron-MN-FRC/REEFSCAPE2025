@@ -40,7 +40,6 @@ private final Algae m_algae;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return m_algae.getAlgaeDetect();
     return Robot.getInstance().getAlgaeDetect();
   }
 }

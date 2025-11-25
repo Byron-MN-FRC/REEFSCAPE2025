@@ -36,21 +36,15 @@ public class Vision extends SubsystemBase {
 
     @Override
     public void periodic() {
+
+        updatePoseEstimator();
         
         updateTargetData(Constants.VisionConstants.limelightName);
         updateTargetData(Constants.VisionConstants.limelightName2);
         
-        // SmartDashboard.putNumber("lastTargetFront", lastTargetFront);
-        // SmartDashboard.putNumber("lastTargetBack", lastTargetBack);
-      
         if (timestampToReEnable < Utils.getCurrentTimeSeconds() &&tempDisable  == true){
             tempDisable = false; 
         }
-
-        // SmartDashboard.putBoolean("tempDisable", tempDisable);
-
-        // SmartDashboard.putString("placementPosition: " , autoStartPose.toString());
-        // SmartDashboard.putString("currentPosition: ", Robot.getInstance().drivetrain.getState().Pose.toString());
 
         if (DriverStation.isAutonomous() && !DriverStation.isEnabled()) {
             // For auto set-up
@@ -134,5 +128,33 @@ public class Vision extends SubsystemBase {
             autoStartPose = new Pose2d();
         } 
 
+    }
+
+    public void updatePoseEstimator() {
+    
+    /*
+     * This example of adding Limelight is very simple and may not be sufficient for
+     * on-field use.
+     * Users typically need to provide a standard deviation that scales with the
+     * distance to target
+     * and changes with number of tags available.
+     *
+     * This example is sufficient to show that vision integration is possible,
+     * though exact implementation
+     * of how to use vision should be tuned per-robot and to the team's
+     * specification.
+     */
+    if (Robot.kUseLimelight) {
+        var driveState = Robot.getInstance().drivetrain.getState();
+        double headingDeg = driveState.Pose.getRotation().getDegrees();
+        double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
+  
+        LimelightHelpers.SetRobotOrientation(Constants.VisionConstants.limelightName, headingDeg, 0, 0, 0, 0, 0);
+        var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(Constants.VisionConstants.limelightName);
+        if (llMeasurement != null && llMeasurement.tagCount > 0 && omegaRps < 1.5 && !Robot.getInstance().m_vision.tempDisable) {
+          Robot.getInstance().drivetrain.addVisionMeasurement(llMeasurement.pose,
+              Utils.fpgaToCurrentTime(llMeasurement.timestampSeconds));
+        }
+      }
     }
 }

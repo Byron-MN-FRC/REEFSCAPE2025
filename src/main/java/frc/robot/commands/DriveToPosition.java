@@ -34,14 +34,15 @@ public class DriveToPosition extends Command {
     
     private final ProfiledPIDController magnitudeController = new ProfiledPIDController(2.75, 0, 0, Magnitude_Constraints);
     private final ProfiledPIDController omegaController = new ProfiledPIDController(4, 0, .1, OMEGA_CONSTRAINTS);
-
+    
+    private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity    
+    
     private String _limelightName = Constants.VisionConstants.limelightName;
     private final CommandSwerveDrivetrain drivetrain;
     private Pose2d goalPose;
     private double angle;
 
-    private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity    
     
     public DriveToPosition(CommandSwerveDrivetrain subsystem, String llName) {
         drivetrain = subsystem;
